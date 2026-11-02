@@ -1,93 +1,179 @@
 @charset "utf-8";
-/* footer.css · 页尾、版权、备案和社交图标 */
-
+/* footer.css · 分档居中的页尾内容区与版权区 */
 .site-footer {
   position: relative;
   z-index: 1;
+  flex-shrink: 0;
   border-block-start: 1px solid var(--line-soft);
-  padding-block: var(--s-7) var(--s-5);
   background: #f5f5f5;
 }
-
 :root[data-theme="dark"] .site-footer {
   background: var(--bg-raised);
 }
-
-.site-footer__inner {
+.footer-container {
   width: 100%;
-  max-width: var(--maxw);
+  max-width: 1440px;
   margin-inline: auto;
-  padding-inline: var(--gutter);
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: var(--s-6);
 }
-
+.footer-content {
+  display: grid;
+  grid-template-columns: 1.5fr repeat(3, minmax(0, 1fr));
+  align-items: start;
+  column-gap: 80px; /* 四个分栏之间的固定间距 */
+  row-gap: 32px;
+  min-height: 176px;
+  padding: 32px 40px;
+}
+.site-footer__brand {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 8px;
+  max-width: 100%;
+}
 .site-footer__description {
-  margin-block-start: var(--s-1);
   font-size: 14px;
+  line-height: 1.75;
   color: var(--fg);
 }
-
 .site-footer__logo .wordmark__logo {
   width: 24px;
   height: 24px;
 }
-
-.site-footer__legal {
-  grid-column: 1 / -1;
+.footer-center {
+  display: grid;
+  justify-items: center;
   text-align: center;
 }
-
+.footer-copyright {
+  border-block-start: 1px solid var(--line);
+  padding: 16px 40px;
+}
+.site-footer__legal {
+  max-width: 100%;
+}
 .site-footer__copy {
   font-size: 14px;
   font-weight: 400;
   color: var(--fg);
 }
-
 .site-footer__filing {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
   margin-block-start: 6px;
-  font-family: inherit;
-  font-size: inherit;
+  font: inherit;
   font-weight: 400;
   letter-spacing: 0;
 }
-
 .site-footer__links {
   display: flex;
   align-items: center;
-  gap: var(--s-5);
-  margin-block-start: var(--s-1);
-  font-family: inherit;
-  font-size: 13px;
-  letter-spacing: 0;
+  gap: 8px;
 }
-
 .footer-link {
   color: var(--fg);
   transition: color 0.25s var(--ease);
 }
-
 .footer-link:hover,
 .footer-link:focus-visible {
   color: var(--accent);
 }
-
-.footer-link--github {
+.footer-link--github,
+.footer-link--email {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
   width: 44px;
   height: 44px;
-  margin-inline-start: 0;
 }
-
-.footer-github__icon {
+.footer-github__icon,
+.footer-email__icon {
   width: 24px;
   height: 24px;
+}
+.footer-email__icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.site-footer__col {
+  max-width: 100%;
+  font-size: 14px;
+}
+.site-footer__col-title {
+  font-family:
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    "Noto Sans",
+    Ubuntu,
+    Cantarell,
+    "Helvetica Neue",
+    sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--fg);
+}
+.site-footer__col-list {
+  margin-block-start: 4px;
+  overflow-wrap: anywhere;
+}
+.site-footer__col-list li + li {
+  margin-block-start: 4px;
+}
+.footer-link--external {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.footer-external__icon {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+@media (max-width: 1535px) {
+  .footer-container {
+    max-width: 1280px;
+  }
+}
+@media (max-width: 1279px) {
+  .footer-container {
+    max-width: 1024px;
+  }
+}
+@media (max-width: 1024px) {
+  .footer-container {
+    max-width: 786px;
+  }
+  .footer-content {
+    column-gap: 48px;
+  }
+}
+@media (max-width: 768px) {
+  .footer-container {
+    max-width: 640px;
+  }
+  .footer-content {
+    grid-template-columns: minmax(0, 1fr);
+    justify-content: start;
+    min-height: 0;
+    gap: 32px;
+    padding-inline: clamp(24px, 5vw, 40px);
+  }
+  .footer-copyright {
+    padding-inline: clamp(24px, 5vw, 40px);
+  }
 }

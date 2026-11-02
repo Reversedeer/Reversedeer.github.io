@@ -2,8 +2,15 @@
 /* docs-navigation.css · 文档侧栏目录和本页目录 */
 
 .docs-toc {
-  position: sticky;
-  inset-block-start: 96px;
+  position: fixed;
+  inset-block-start: var(--docs-top);
+  inset-inline-start: var(--docs-frame-inset);
+  width: var(--docs-left-width);
+  max-height: calc(100dvh - var(--docs-top) - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
   align-self: start;
   font-size: var(--fs-small);
 }
@@ -19,6 +26,14 @@
   color: var(--fg-2);
   cursor: pointer;
   transition: color 0.25s var(--ease);
+}
+
+.docs-toc__project {
+  margin-block-end: 16px;
+  padding-inline: 6px;
+  color: var(--fg);
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .docs-toc__summary:hover {
@@ -39,6 +54,7 @@
   justify-content: space-between;
   gap: 12px;
   padding-block: 8px;
+  padding-inline: 6px;
   list-style: none;
   font-family: var(--font-sans);
   font-size: 14px;
@@ -62,6 +78,8 @@
   content: "";
   width: 7px;
   height: 7px;
+  flex: 0 0 7px;
+  margin-inline-end: 2px;
   border-right: 1.5px solid currentColor;
   border-bottom: 1.5px solid currentColor;
   transform: rotate(-45deg);
@@ -79,15 +97,17 @@
 .docs-toc__list {
   margin-block-start: 2px;
   margin-inline-start: 0;
-  padding-inline-start: 12px;
+  padding-inline-start: 6px;
   border-inline-start: 1px solid var(--line-soft);
 }
 
 .docs-toc__link {
   display: block;
   padding-block: 6px;
+  padding-inline: 6px;
   color: var(--fg-2);
   line-height: 1.5;
+  overflow-wrap: anywhere;
   transition: color 0.25s var(--ease);
 }
 
@@ -101,15 +121,31 @@
   color: var(--accent);
 }
 
+/* 目录是纵向滚动容器，向外扩的焦点描边会被裁切，只剩上下两条横线；
+   这里统一改为向内绘制，配合行内左右内边距，描边完整且不会压住文字 */
+.docs-toc :focus-visible,
+.docs-page-toc :focus-visible {
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
 .docs-page-toc {
-  position: sticky;
-  inset-block-start: 96px;
+  position: fixed;
+  inset-block-start: var(--docs-top);
+  inset-inline-end: var(--docs-frame-inset);
+  width: var(--docs-right-width);
+  max-height: calc(100dvh - var(--docs-top) - 24px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior-y: contain;
+  scrollbar-width: thin;
   align-self: start;
   font-size: var(--fs-small);
 }
 
 .docs-page-toc__title {
   margin-block-end: var(--s-2);
+  padding-inline: 6px;
   font-family: var(--font-mono);
   font-size: var(--fs-mono);
   letter-spacing: var(--track-mono);
@@ -119,8 +155,10 @@
 .docs-page-toc__link {
   display: block;
   padding-block: 4px;
+  padding-inline: 6px;
   color: var(--fg-2);
   line-height: 1.5;
+  overflow-wrap: anywhere;
   transition: color 0.2s var(--ease);
 }
 
@@ -153,6 +191,10 @@
   .docs-toc {
     position: static;
     inset-block-start: auto;
+    inset-inline-start: auto;
+    width: auto;
+    max-height: none;
+    overflow: visible;
   }
 
   .docs-toc__nav {

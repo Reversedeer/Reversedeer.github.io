@@ -4,7 +4,9 @@
 .bg-canvas {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  /* 高于正文和页脚（层级 1），爱心拖尾才能落在页脚、文档翻页卡片等不透明表面之上；
+     仍低于顶部导航、回到顶部按钮等固定界面 */
+  z-index: 2;
   display: block;
   width: 100%;
   height: 100%;

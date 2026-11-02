@@ -1,0 +1,100 @@
+@charset "utf-8";
+/* docs-pagination.css · 文档上一篇、下一篇导航 */
+
+.docs-pagination {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-block-start: 64px;
+}
+
+.docs-pagination__link {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-width: 0;
+  min-height: 96px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  transition:
+    border-color 0.2s var(--ease),
+    transform 0.2s var(--ease);
+}
+
+.docs-pagination__link--next {
+  grid-column: 2;
+  text-align: end;
+}
+
+.docs-pagination__label {
+  color: var(--fg-2);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.docs-pagination__title {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--accent);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.docs-pagination__link--next .docs-pagination__title {
+  justify-content: flex-end;
+}
+
+.docs-pagination__text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.docs-pagination__arrow {
+  flex: 0 0 auto;
+  transition: transform 0.2s var(--ease);
+}
+
+.docs-pagination__link:hover,
+.docs-pagination__link:focus-visible {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.docs-pagination__link--previous:hover .docs-pagination__arrow,
+.docs-pagination__link--previous:focus-visible .docs-pagination__arrow {
+  transform: translateX(-4px);
+}
+
+.docs-pagination__link--next:hover .docs-pagination__arrow,
+.docs-pagination__link--next:focus-visible .docs-pagination__arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 560px) {
+  .docs-pagination {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .docs-pagination__link--next {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-pagination__link,
+  .docs-pagination__arrow {
+    transition: none;
+  }
+
+  .docs-pagination__link:hover,
+  .docs-pagination__link:focus-visible,
+  .docs-pagination__link:hover .docs-pagination__arrow,
+  .docs-pagination__link:focus-visible .docs-pagination__arrow {
+    transform: none;
+  }
+}

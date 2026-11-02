@@ -1,6 +1,71 @@
 [
-  { "group": "开始", "pages": ["index", "preview"] },
-  { "group": "结构", "pages": ["structure", "deploy", "blog"] },
-  { "group": "约定", "pages": ["tokens", "motion", "rules"] },
-  { "group": "帮助", "pages": ["faq"] }
+  {
+    "group": "文档中心",
+    "pages": [
+      "index"
+    ]
+  },
+  {
+    "group": "开始使用",
+    "pages": [
+      "urp-tools",
+      "getting-started"
+    ],
+    "project": "urp-tools",
+    "projectTitle": "URP Tools"
+  },
+  {
+    "group": "课表与成绩",
+    "pages": [
+      "timetable",
+      "scores"
+    ],
+    "project": "urp-tools",
+    "projectTitle": "URP Tools"
+  },
+  {
+    "group": "选课与退课",
+    "pages": [
+      "course-selection",
+      "course-drop"
+    ],
+    "project": "urp-tools",
+    "projectTitle": "URP Tools"
+  },
+  {
+    "group": "教学评估",
+    "pages": [
+      "evaluation"
+    ],
+    "project": "urp-tools",
+    "projectTitle": "URP Tools"
+  },
+  {
+    "group": "设置与帮助",
+    "pages": [
+      "configuration",
+      "faq"
+    ],
+    "project": "urp-tools",
+    "projectTitle": "URP Tools"
+  },
+  {
+    "project": "dy-video-parser",
+    "projectTitle": "抖音视频解析器",
+    "group": "使用",
+    "pages": [
+      "dy-video-parser",
+      "dy-download",
+      "dy-cookie"
+    ]
+  },
+  {
+    "project": "dy-video-parser",
+    "projectTitle": "抖音视频解析器",
+    "group": "参考",
+    "pages": [
+      "dy-development",
+      "dy-faq"
+    ]
+  }
 ]

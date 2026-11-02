@@ -62,9 +62,30 @@
   letter-spacing: -0.05em;
   white-space: nowrap;
   color: transparent;
-  -webkit-text-stroke: 1px var(--line);
+  -webkit-text-stroke: 1px var(--accent);
+  opacity: 0.35;
+  text-rendering: geometricPrecision;
   pointer-events: none;
   user-select: none;
+}
+
+/* 细描边随定位坐标重绘，避免 translate3d 合成图层的小数像素采样。 */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .about-hero__mark.fx-drift {
+      animation-name: about-mark-drift;
+      transform: none;
+    }
+  }
+}
+
+@keyframes about-mark-drift {
+  from {
+    inset-inline-start: calc(-0.06em + var(--fx-from, 40px));
+  }
+  to {
+    inset-inline-start: calc(-0.06em + var(--fx-to, -60px));
+  }
 }
 
 .js .about-hero__title .line__i {

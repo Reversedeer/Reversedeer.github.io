@@ -103,10 +103,10 @@
 
 .docs-body :not(pre) > code {
   padding: 1px 6px;
-  border: 1px solid var(--line);
+  border: 1px solid transparent;
   border-radius: var(--radius);
-  background: var(--bg-raised);
-  color: var(--fg);
+  background: var(--accent-wash);
+  color: var(--accent-tint);
   font-family: var(--font-mono);
   font-size: 0.875em;
   letter-spacing: 0;
@@ -164,7 +164,7 @@
   font-size: var(--fs-mono);
   letter-spacing: 0;
   white-space: nowrap;
-  color: var(--fg);
+  color: var(--accent-tint);
 }
 
 .docs-list {

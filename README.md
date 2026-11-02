@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | 主页（含关于） | 根目录 | reversedeer.com |
 | 博客 | blog/ | blog.reversedeer.com |
-| 文档 | docs/ | docs.reversedeer.com |
+| 项目文档索引与使用文档 | docs/ | docs.reversedeer.com |
 
 ## 本地预览
 
@@ -61,7 +61,7 @@ Web/
 | `accessibility.css` | 键盘焦点、跳过导航、屏幕阅读器和减少动态效果 |
 | `branding.css` | LOGO 与站点名称 |
 | `controls.css` | 按钮、行内链接和通用图标 |
-| `header.css` / `footer.css` | 顶栏与菜单 / 页尾、版权、备案和社交图标 |
+| `header.css` / `footer.css` | 顶栏与分级收纳菜单 / 分档居中的页尾内容区和版权区 |
 | `theme-switch.css` | 主题开关及主题切换过渡 |
 | `background-effects.css` | 背景画布 |
 | `page-transitions.css` | 页面切换动画 |
@@ -75,6 +75,8 @@ Web/
 | `blog-list.css` / `article.css` | 博客列表 / 文章正文与上一篇、下一篇 |
 | `docs-layout.css` / `docs-header.css` | 文档分栏布局 / 标题与面包屑 |
 | `docs-navigation.css` / `docs-content.css` | 文档目录 / 正文、代码和表格 |
+| `docs-pagination.css` | 文档底部翻页卡片，顺序来自 docs/pages/nav.json |
+| 文档首页 | 复用博客的 blog-layout.css、blog-header.css、blog-list.css 和 post-list.css |
 
 | JavaScript 文件 | 用途 |
 | --- | --- |
@@ -132,10 +134,13 @@ npm run build:blog
 
 ```json
 [
-  { "group": "开始", "pages": ["index", "preview"] },
-  { "group": "结构", "pages": ["structure", "deploy", "blog"] }
+  { "group": "文档中心", "pages": ["index"] },
+  { "project": "urp-tools", "projectTitle": "URP Tools", "group": "开始使用", "pages": ["urp-tools", "getting-started"] },
+  { "project": "dy-video-parser", "projectTitle": "抖音视频解析器", "group": "使用", "pages": ["dy-video-parser", "dy-download"] }
 ]
 ```
+
+`project` 决定侧栏和翻页范围，项目之间不会相互串页。文档中心的 frontmatter 使用 `layout: index`，负责项目入口；项目首页的 frontmatter 使用 `date: "YYYY-MM-DD"` 标记文档更新日期，首页列表据此倒序排列。同日更新保持目录中的项目顺序。各项目页面继续使用原有 Markdown 格式。
 
 每个页面是一个 md 文件，frontmatter 写标题、描述和导语，正文按二级标题分节：
 
@@ -157,7 +162,7 @@ lede: 标题下方的一句话
 npm run build:docs
 ```
 
-脚本会为每个页面生成 `docs/<slug>.html`，首页是 `docs/index.html`。左侧目录来自 `nav.json`，右侧本页目录来自当前页面的二级和三级标题；代码块、表格和步骤列表会自动补上文档页样式。`npm run build` 会同时构建博客和文档。
+脚本会为每个页面生成 `docs/<slug>.html`，首页是 `docs/index.html`。文档首页使用独立模板，沿用博客的年份分组和文章行样式；文档页的左侧目录来自 `nav.json`，右侧本页目录来自当前页面的二级和三级标题，代码块、表格和步骤列表会自动补上文档页样式。`npm run build` 会同时构建博客和文档。
 
 `docs/pages/` 是源文件，上传到服务器时不需要放进网站目录，只上传生成的 `docs/*.html` 和 `assets/`。
 

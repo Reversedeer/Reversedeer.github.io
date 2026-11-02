@@ -8,20 +8,22 @@
     <link rel="canonical" href="{{canonical}}" />
     <meta name="theme-color" content="#FFFFFF" />
     <meta name="color-scheme" content="light dark" />
-<script>
-  /* theme-init：首帧前确定主题，避免深色模式闪白 */
-  (function () {
-    try {
-      var saved = localStorage.getItem('theme');
-      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (dark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', '#0F1115');
-      }
-    } catch (err) {}
-  })();
-</script>
+    <script>
+
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var dark = saved
+            ? saved === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", "#0F1115");
+          }
+        } catch (err) {}
+      })();
+    </script>
     <link rel="icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="assets/css/fonts.css" />
     <link rel="stylesheet" href="assets/css/theme.css" />
@@ -45,6 +47,7 @@
     <link rel="stylesheet" href="assets/css/docs-header.css" />
     <link rel="stylesheet" href="assets/css/docs-navigation.css" />
     <link rel="stylesheet" href="assets/css/docs-content.css" />
+    <link rel="stylesheet" href="assets/css/docs-pagination.css" />
 
     <script>
       /* 先落 .js 再绘制，避免入场动画的元素闪一下；
@@ -57,8 +60,7 @@
       }, 3000);
     </script>
   </head>
-  <body>
-    <a class="skip-link" href="#main">跳到主内容</a>
+  <body{{bodyClassAttr}}>
     <div class="nav-sentinel" id="nav-sentinel" aria-hidden="true"></div>
     <canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
     <div class="scroll-progress" aria-hidden="true">
@@ -67,46 +69,67 @@
 
     <header class="site-nav" data-nav data-open="false">
       <div class="site-nav__inner">
-        <a
-          class="wordmark"
-          href="https://reversedeer.com/"
-          aria-label="Reversedeer，回到主页"
-        >
-          <img
-            class="wordmark__logo"
-            src="assets/favicon.ico"
-            alt=""
-            width="22"
-            height="22"
-          /><span class="wordmark__zh">Reversedeer</span>
+        <a class="wordmark" href="https://reversedeer.com/" aria-label="Reversedeer，回到主页">
+          <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" /><span
+            class="wordmark__zh"
+            >Reversedeer</span
+          >
         </a>
         <nav class="site-nav__links" id="site-nav-panel" aria-label="主导航">
           <a class="nav-link" href="https://reversedeer.com/">首页</a>
           <a class="nav-link" href="https://reversedeer.com/about.html">关于</a>
           <a class="nav-link" href="https://blog.reversedeer.com/">博客</a>
           <a class="nav-link" href="index.html" aria-current="page">文档</a>
-          <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="深色模式" data-theme-toggle>
-            <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
-            <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
-            <span class="theme-switch__knob" aria-hidden="true"></span>
-          </button>
-          <a
-            class="nav-link"
-            href="https://github.com/Reversedeer"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><svg
-              class="icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
+          <div class="nav-more" data-more-open="false">
+            <button
+              class="nav-more__toggle"
+              type="button"
+              aria-label="更多选项"
+              aria-expanded="false"
+              aria-controls="nav-more-panel"
             >
-              <path
-                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-              /></svg
-            ><span>GitHub</span
-            ><span class="sr-only">（在新标签页打开）</span></a
-          >
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="5" cy="12" r="2" />
+                <circle cx="12" cy="12" r="2" />
+                <circle cx="19" cy="12" r="2" />
+              </svg>
+            </button>
+            <div class="nav-more__panel" id="nav-more-panel">
+              <button
+                class="theme-switch"
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="深色模式"
+                data-theme-toggle
+              >
+                <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"
+                  ><svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="4" />
+                    <path
+                      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                    /></svg
+                ></span>
+                <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"
+                  ><svg class="icon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" /></svg
+                ></span>
+              </button>
+              <a
+                class="nav-link nav-link--github"
+                aria-label="GitHub（在新标签页打开）"
+                href="https://github.com/Reversedeer"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                  /></svg
+                ><span class="nav-github__text">GitHub</span
+                ><span class="sr-only">（在新标签页打开）</span></a
+              >
+            </div>
+          </div>
         </nav>
         <button
           class="nav-toggle"
@@ -139,7 +162,7 @@
       </div>
     </header>
 
-    <main id="main">
+    <main>
       <div class="container docs-shell">
         <div class="docs-layout">
           <details class="docs-toc" id="docs-toc" open>
@@ -150,78 +173,167 @@
           <div class="docs-main">
             <header class="docs-head">
               <nav class="docs-breadcrumb" aria-label="面包屑">
-                <a href="https://reversedeer.com/">首页</a>
-                <span aria-hidden="true">/</span>
-                <span>{{group}}</span>
-                <span aria-hidden="true">/</span>
-                <span aria-current="page">{{title}}</span>
+                <a class="docs-breadcrumb__home" href="index.html" aria-label="返回文档首页">
+                  <svg
+                    class="docs-breadcrumb__icon"
+                    viewBox="0 0 256 256"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.92,15.92,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.92,15.92,0,0,0,219.31,108.68Z"
+                    />
+                  </svg>
+                </a>{{projectBreadcrumb}}
+                <span class="docs-breadcrumb__sep" aria-hidden="true"></span>
+                <span class="docs-breadcrumb__current" aria-current="page">{{title}}</span>
               </nav>
               <h1 class="docs-head__title reveal fx-drift">{{title}}</h1>
               <p class="docs-head__lede reveal" style="--i: 1">{{lede}}</p>
             </header>
 
             <div class="docs-body">{{content}}</div>
+            {{pagination}}
           </div>
 
           <aside class="docs-page-toc" aria-labelledby="page-toc-title">
-            <nav class="docs-page-toc__nav" aria-label="本页目录">
-              {{pageToc}}
-            </nav>
+            <nav class="docs-page-toc__nav" aria-label="本页目录">{{pageToc}}</nav>
           </aside>
         </div>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
-          <a class="wordmark site-footer__logo" href="https://reversedeer.com/" aria-label="Reversedeer，回到首页">
-            <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
-            
-          </a>
-          <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
-          <ul class="site-footer__links">
-            <li>
-              <a
-                class="footer-link footer-link--github"
-                href="https://github.com/Reversedeer"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><svg class="icon footer-github__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="sr-only">GitHub（在新标签页打开）</span></a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="site-footer__legal">
-          <p class="site-footer__copy">
-            Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
-            <span class="site-footer__filing">
-              <a
-                class="footer-link"
-                href="https://beian.miit.gov.cn/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >陕ICP备2021012255号</a
-              >
-            </span>
-          </p>
-        </div>
-      </div>
-    </footer>
+    <div class="site-footer">
+      <div class="footer-container">
+        <footer class="footer footer-content" aria-label="站点链接">
+          <div class="site-footer__brand">
+            <a
+              class="wordmark site-footer__logo"
+              href="https://reversedeer.com/"
+              aria-label="Reversedeer，回到首页"
+            >
+              <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
+            </a>
+            <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
+            <ul class="site-footer__links">
+              <li>
+                <a
+                  class="footer-link footer-link--github"
+                  href="https://github.com/Reversedeer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><svg
+                    class="icon footer-github__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    /></svg
+                  ><span class="sr-only">GitHub（在新标签页打开）</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="footer-link footer-link--email"
+                  href="mailto:reversedeer@gmail.com"
+                  aria-label="发送邮件至 reversedeer@gmail.com"
+                >
+                  <svg
+                    class="icon footer-email__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m3 6 9 7 9-7" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-    <button
-      class="to-top"
-      type="button"
-      data-to-top
-      data-to-top-float
-      aria-label="回到顶部"
-    >
-      <svg
-        class="to-top__icon"
-        viewBox="0 0 256 256"
-        aria-hidden="true"
-        focusable="false"
-      >
+          <nav class="site-footer__col" aria-labelledby="footer-blog-title">
+            <h2 class="site-footer__col-title" id="footer-blog-title">BLOG</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/minecraft-hypixel.html"
+                  >Minecraft-Hypixel加速IP搭建教程</a
+                >
+              </li>
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/fonedogdatarecovery.html"
+                  >FoneDogDataRecovery</a
+                >
+              </li>
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/bt-installer.html"
+                  >宝塔面板的安装</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <nav class="site-footer__col" aria-labelledby="footer-docs-title">
+            <h2 class="site-footer__col-title" id="footer-docs-title">DOCS</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a class="footer-link" href="https://docs.reversedeer.com/urp-tools.html">URP Tools</a>
+              </li>
+              <li>
+                <a class="footer-link" href="https://docs.reversedeer.com/dy-video-parser.html"
+                  >抖音视频解析器</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <nav class="site-footer__col" aria-labelledby="footer-blogroll-title">
+            <h2 class="site-footer__col-title" id="footer-blogroll-title">BLOGROLL</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a
+                  class="footer-link footer-link--external"
+                  href="https://maohaoji.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >泰迪熊的小站<svg
+                    class="icon footer-external__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <path d="M15 3h6v6" />
+                    <path d="M10 14 21 3" />
+                  </svg><span class="sr-only">（在新标签页打开）</span></a
+                >
+              </li>
+            </ul>
+          </nav>
+        </footer>
+        <footer class="footer footer-center footer-copyright" aria-label="版权信息">
+          <div class="site-footer__legal">
+            <p class="site-footer__copy">
+              Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
+              <span class="site-footer__filing">
+                <a
+                  class="footer-link"
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >陕ICP备2021012255号</a
+                >
+              </span>
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <button class="to-top" type="button" data-to-top data-to-top-float aria-label="回到顶部">
+      <svg class="to-top__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
         <path
           d="M205.66,117.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,164.69V40a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
         />

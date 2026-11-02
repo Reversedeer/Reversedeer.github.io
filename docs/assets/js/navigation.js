@@ -35,7 +35,8 @@
       return nav.getAttribute("data-open") === "true";
     }
 
-    function setOpen(open) {
+    function setOpen(open, animate) {
+      nav.classList.toggle("is-menu-animating", animate !== false && mq.matches);
       nav.setAttribute("data-open", open ? "true" : "false");
       toggle.setAttribute("aria-expanded", open ? "true" : "false");
       toggle.setAttribute("aria-label", open ? "关闭菜单" : "打开菜单");
@@ -59,7 +60,7 @@
     });
 
     function onViewportChange() {
-      if (!mq.matches && isOpen()) setOpen(false);
+      setOpen(false, false);
     }
     if (typeof mq.addEventListener === "function") {
       mq.addEventListener("change", onViewportChange);
@@ -68,9 +69,40 @@
     }
   }
 
+  function initMoreMenu() {
+    var more = document.querySelector(".nav-more");
+    if (!more) return;
+    var button = more.querySelector(".nav-more__toggle");
+    if (!button) return;
+    var compact = window.matchMedia("(min-width: 769px) and (max-width: 1024px)");
+
+    function setOpen(open) {
+      more.setAttribute("data-more-open", open ? "true" : "false");
+      button.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+
+    button.addEventListener("click", function () {
+      setOpen(more.getAttribute("data-more-open") !== "true");
+    });
+    document.addEventListener("click", function (event) {
+      if (!more.contains(event.target)) setOpen(false);
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape" || more.getAttribute("data-more-open") !== "true") return;
+      setOpen(false);
+      button.focus();
+    });
+    function reset() {
+      setOpen(false);
+    }
+    if (typeof compact.addEventListener === "function") compact.addEventListener("change", reset);
+    else if (typeof compact.addListener === "function") compact.addListener(reset);
+  }
+
   function boot() {
     initNavCondense();
     initMenu();
+    initMoreMenu();
   }
 
   if (document.readyState === "loading") {

@@ -4,24 +4,26 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>常见问题 · 文档 · Reversedeer</title>
-    <meta name="description" content="文档页打开空白、截图布局异常等常见问题的排查。" />
+    <meta name="description" content="安装、登录、配置、任务执行与数据查询问题。" />
     <link rel="canonical" href="https://docs.reversedeer.com/faq.html" />
     <meta name="theme-color" content="#FFFFFF" />
     <meta name="color-scheme" content="light dark" />
-<script>
-  /* theme-init：首帧前确定主题，避免深色模式闪白 */
-  (function () {
-    try {
-      var saved = localStorage.getItem('theme');
-      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (dark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.setAttribute('content', '#0F1115');
-      }
-    } catch (err) {}
-  })();
-</script>
+    <script>
+
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var dark = saved
+            ? saved === "dark"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if (dark) {
+            document.documentElement.setAttribute("data-theme", "dark");
+            var meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute("content", "#0F1115");
+          }
+        } catch (err) {}
+      })();
+    </script>
     <link rel="icon" href="assets/favicon.ico" />
     <link rel="stylesheet" href="assets/css/fonts.css" />
     <link rel="stylesheet" href="assets/css/theme.css" />
@@ -45,6 +47,7 @@
     <link rel="stylesheet" href="assets/css/docs-header.css" />
     <link rel="stylesheet" href="assets/css/docs-navigation.css" />
     <link rel="stylesheet" href="assets/css/docs-content.css" />
+    <link rel="stylesheet" href="assets/css/docs-pagination.css" />
 
     <script>
       /* 先落 .js 再绘制，避免入场动画的元素闪一下；
@@ -58,7 +61,6 @@
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#main">跳到主内容</a>
     <div class="nav-sentinel" id="nav-sentinel" aria-hidden="true"></div>
     <canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
     <div class="scroll-progress" aria-hidden="true">
@@ -67,46 +69,67 @@
 
     <header class="site-nav" data-nav data-open="false">
       <div class="site-nav__inner">
-        <a
-          class="wordmark"
-          href="https://reversedeer.com/"
-          aria-label="Reversedeer，回到主页"
-        >
-          <img
-            class="wordmark__logo"
-            src="assets/favicon.ico"
-            alt=""
-            width="22"
-            height="22"
-          /><span class="wordmark__zh">Reversedeer</span>
+        <a class="wordmark" href="https://reversedeer.com/" aria-label="Reversedeer，回到主页">
+          <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" /><span
+            class="wordmark__zh"
+            >Reversedeer</span
+          >
         </a>
         <nav class="site-nav__links" id="site-nav-panel" aria-label="主导航">
           <a class="nav-link" href="https://reversedeer.com/">首页</a>
           <a class="nav-link" href="https://reversedeer.com/about.html">关于</a>
           <a class="nav-link" href="https://blog.reversedeer.com/">博客</a>
           <a class="nav-link" href="index.html" aria-current="page">文档</a>
-          <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="深色模式" data-theme-toggle>
-            <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
-            <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
-            <span class="theme-switch__knob" aria-hidden="true"></span>
-          </button>
-          <a
-            class="nav-link"
-            href="https://github.com/Reversedeer"
-            target="_blank"
-            rel="noopener noreferrer"
-            ><svg
-              class="icon"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-              focusable="false"
+          <div class="nav-more" data-more-open="false">
+            <button
+              class="nav-more__toggle"
+              type="button"
+              aria-label="更多选项"
+              aria-expanded="false"
+              aria-controls="nav-more-panel"
             >
-              <path
-                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
-              /></svg
-            ><span>GitHub</span
-            ><span class="sr-only">（在新标签页打开）</span></a
-          >
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <circle cx="5" cy="12" r="2" />
+                <circle cx="12" cy="12" r="2" />
+                <circle cx="19" cy="12" r="2" />
+              </svg>
+            </button>
+            <div class="nav-more__panel" id="nav-more-panel">
+              <button
+                class="theme-switch"
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="深色模式"
+                data-theme-toggle
+              >
+                <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"
+                  ><svg class="icon" viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="4" />
+                    <path
+                      d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+                    /></svg
+                ></span>
+                <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"
+                  ><svg class="icon" viewBox="0 0 24 24">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" /></svg
+                ></span>
+              </button>
+              <a
+                class="nav-link nav-link--github"
+                aria-label="GitHub（在新标签页打开）"
+                href="https://github.com/Reversedeer"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path
+                    d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                  /></svg
+                ><span class="nav-github__text">GitHub</span
+                ><span class="sr-only">（在新标签页打开）</span></a
+              >
+            </div>
+          </div>
         </nav>
         <button
           class="nav-toggle"
@@ -139,37 +162,43 @@
       </div>
     </header>
 
-    <main id="main">
+    <main>
       <div class="container docs-shell">
         <div class="docs-layout">
           <details class="docs-toc" id="docs-toc" open>
             <summary class="docs-toc__summary">文档目录</summary>
-            <nav class="docs-toc__nav" aria-label="文档目录">            <details class="docs-toc__group">
-              <summary class="docs-toc__group-title">开始</summary>
+            <nav class="docs-toc__nav" aria-label="文档目录"><p class="docs-toc__project">URP Tools</p>
+            <details class="docs-toc__group">
+              <summary class="docs-toc__group-title">开始使用</summary>
               <ul class="docs-toc__list">
-              <li><a class="docs-toc__link" href="index.html">概览</a></li>
-              <li><a class="docs-toc__link" href="preview.html">本地预览</a></li>
+              <li><a class="docs-toc__link" href="urp-tools.html">URP Tools</a></li>
+              <li><a class="docs-toc__link" href="getting-started.html">安装与登录</a></li>
               </ul>
             </details>
             <details class="docs-toc__group">
-              <summary class="docs-toc__group-title">结构</summary>
+              <summary class="docs-toc__group-title">课表与成绩</summary>
               <ul class="docs-toc__list">
-              <li><a class="docs-toc__link" href="structure.html">目录结构</a></li>
-              <li><a class="docs-toc__link" href="deploy.html">子域名与部署</a></li>
-              <li><a class="docs-toc__link" href="blog.html">新增一篇文章</a></li>
+              <li><a class="docs-toc__link" href="timetable.html">课表</a></li>
+              <li><a class="docs-toc__link" href="scores.html">成绩查询</a></li>
               </ul>
             </details>
             <details class="docs-toc__group">
-              <summary class="docs-toc__group-title">约定</summary>
+              <summary class="docs-toc__group-title">选课与退课</summary>
               <ul class="docs-toc__list">
-              <li><a class="docs-toc__link" href="tokens.html">设计令牌</a></li>
-              <li><a class="docs-toc__link" href="motion.html">动效清单</a></li>
-              <li><a class="docs-toc__link" href="rules.html">命名与共享文件</a></li>
+              <li><a class="docs-toc__link" href="course-selection.html">选课与持续抢课</a></li>
+              <li><a class="docs-toc__link" href="course-drop.html">退课</a></li>
+              </ul>
+            </details>
+            <details class="docs-toc__group">
+              <summary class="docs-toc__group-title">教学评估</summary>
+              <ul class="docs-toc__list">
+              <li><a class="docs-toc__link" href="evaluation.html">教学评估</a></li>
               </ul>
             </details>
             <details class="docs-toc__group" open>
-              <summary class="docs-toc__group-title">帮助</summary>
+              <summary class="docs-toc__group-title">设置与帮助</summary>
               <ul class="docs-toc__list">
+              <li><a class="docs-toc__link" href="configuration.html">配置参考</a></li>
               <li><a class="docs-toc__link is-current" href="faq.html" aria-current="page">常见问题</a></li>
               </ul>
             </details></nav>
@@ -178,89 +207,250 @@
           <div class="docs-main">
             <header class="docs-head">
               <nav class="docs-breadcrumb" aria-label="面包屑">
-                <a href="https://reversedeer.com/">首页</a>
-                <span aria-hidden="true">/</span>
-                <span>帮助</span>
-                <span aria-hidden="true">/</span>
-                <span aria-current="page">常见问题</span>
+                <a class="docs-breadcrumb__home" href="index.html" aria-label="返回文档首页">
+                  <svg
+                    class="docs-breadcrumb__icon"
+                    viewBox="0 0 256 256"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M219.31,108.68l-80-80a16,16,0,0,0-22.62,0l-80,80A15.92,15.92,0,0,0,32,120v96a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V160h32v56a8,8,0,0,0,8,8h64a8,8,0,0,0,8-8V120A15.92,15.92,0,0,0,219.31,108.68Z"
+                    />
+                  </svg>
+                </a><span class="docs-breadcrumb__sep" aria-hidden="true"></span><a class="docs-breadcrumb__link" href="urp-tools.html">URP Tools</a>
+                <span class="docs-breadcrumb__sep" aria-hidden="true"></span>
+                <span class="docs-breadcrumb__current" aria-current="page">常见问题</span>
               </nav>
               <h1 class="docs-head__title reveal fx-drift">常见问题</h1>
-              <p class="docs-head__lede reveal" style="--i: 1">先看控制台，再检查样式表路径和脚本加载。</p>
+              <p class="docs-head__lede reveal" style="--i: 1">常见情况与对应处理方式。</p>
             </header>
 
-            <div class="docs-body"><section class="docs-section reveal" aria-labelledby="faq-blank">
-            <h2 class="docs-section__title" id="faq-blank">打开是一片空白<a class="docs-anchor" href="#faq-blank" aria-label="本节锚点：打开是一片空白">#</a></h2>
-<p>先看控制台。多数情况是样式表路径写错：样式表跟页面在同一层，路径应该是 assets/css/xxx.css。另外 head 里那段内联脚本不能删，它先给 html 挂 .js，三秒内没等到 animations.js 再撤掉。</p>
+            <div class="docs-body"><section class="docs-section reveal" aria-labelledby="setup">
+            <h2 class="docs-section__title" id="setup">安装与配置<a class="docs-anchor" href="#setup" aria-label="本节锚点：安装与配置">#</a></h2>
+<div class="docs-table-wrap"><table class="docs-table">
+<thead>
+<tr>
+<th>情况</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Python 版本不兼容</td>
+<td>当前要求 Python 3.10；用 <code>poetry run python --version</code> 检查运行环境</td>
+</tr>
+<tr>
+<td>桌面程序启动失败</td>
+<td>源码运行 <code>poetry run urp-tools-gui</code> 查看错误输出</td>
+</tr>
+<tr>
+<td>命令行缺少账号密码</td>
+<td>配置 <code>URP_USERNAME</code> 和 <code>URP_PASSWORD</code></td>
+</tr>
+<tr>
+<td>配置修改未生效</td>
+<td>检查配置路径、同名环境变量，并重新启动；详见<a href="configuration.html#explicit-file">配置参考</a></td>
+</tr>
+</tbody></table></div>
           </section>
 
-<section class="docs-section reveal" aria-labelledby="faq-shot">
-            <h2 class="docs-section__title" id="faq-shot">截图里页面像是坏了<a class="docs-anchor" href="#faq-shot" aria-label="本节锚点：截图里页面像是坏了">#</a></h2>
-<p>那是 headless Chrome 的坑。<code>--headless=new</code> 的视口宽度有 500px 下限，写 390 会按 512 布局再裁到 390 输出，看起来就像内容被切断。要看真实的窄屏布局，用 CDP 的 <code>Emulation.setDeviceMetricsOverride</code> 设视口。</p>
+<section class="docs-section reveal" aria-labelledby="session">
+            <h2 class="docs-section__title" id="session">登录与会话<a class="docs-anchor" href="#session" aria-label="本节锚点：登录与会话">#</a></h2>
+<p>登录失败时，可用同一账号在教务网页核对登录状态。若网页正常、工具失败，按错误信息区分连接、验证码识别或接口解析问题。</p>
+<p>会话失效、异地登录或令牌失效时，程序会尝试恢复认证，侧栏会显示对应状态。恢复失败可退出后重新登录。</p>
+          </section>
+
+<section class="docs-section reveal" aria-labelledby="courses">
+            <h2 class="docs-section__title" id="courses">课程与任务<a class="docs-anchor" href="#courses" aria-label="本节锚点：课程与任务">#</a></h2>
+<div class="docs-table-wrap"><table class="docs-table">
+<thead>
+<tr>
+<th>情况</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可选列表缺少某门课</td>
+<td>已选课程会被过滤；同时检查学期、选课阶段和课程资格</td>
+</tr>
+<tr>
+<td>能看到课程，不能提交</td>
+<td>预览不代表选课已开放</td>
+</tr>
+<tr>
+<td>后续任务尚未开始</td>
+<td>多个目标按顺序处理，持续抢课可能停留在前一个目标</td>
+</tr>
+<tr>
+<td>评教提交前等待</td>
+<td>默认统一等待 120 秒后提交</td>
+</tr>
+<tr>
+<td>选退课后数据未更新</td>
+<td>刷新课程列表和课表；执行结果不明确时核对教务网页</td>
+</tr>
+</tbody></table></div>
+          </section>
+
+<section class="docs-section reveal" aria-labelledby="data">
+            <h2 class="docs-section__title" id="data">成绩与课表<a class="docs-anchor" href="#data" aria-label="本节锚点：成绩与课表">#</a></h2>
+<p>课表只展示本学期。缺少星期或节次的记录不绘制到表格中，导出文件的位置由保存窗口或命令行工作目录决定。</p>
+<p>绩点采用学分加权，排除“任选”及无有效学分、绩点的记。</p>
+          </section>
+
+<section class="docs-section reveal" aria-labelledby="feedback">
+            <h2 class="docs-section__title" id="feedback">问题反馈<a class="docs-anchor" href="#feedback" aria-label="本节锚点：问题反馈">#</a></h2>
+<p>在<a href="https://github.com/Reversedeer/urp-academic-affairs-tools/issues">项目 Issues</a>提供版本、操作系统、复现步骤和错误信息。截图或日志中的密码、Cookie、令牌等登录凭据应移除。</p>
           </section></div>
+            <nav class="docs-pagination reveal" aria-label="文档翻页">
+<a class="docs-pagination__link docs-pagination__link--previous" href="configuration.html" rel="prev" aria-label="上一页：配置参考"><span class="docs-pagination__label">上一页</span><span class="docs-pagination__title"><span class="docs-pagination__arrow" aria-hidden="true">«</span><span class="docs-pagination__text">配置参考</span></span></a>
+</nav>
           </div>
 
           <aside class="docs-page-toc" aria-labelledby="page-toc-title">
-            <nav class="docs-page-toc__nav" aria-label="本页目录">
-                        <ul class="docs-page-toc__list">
-          <li><a class="docs-page-toc__link" href="#faq-blank">打开是一片空白</a></li>
-          <li><a class="docs-page-toc__link" href="#faq-shot">截图里页面像是坏了</a></li>
-          </ul>
-            </nav>
+            <nav class="docs-page-toc__nav" aria-label="本页目录">          <ul class="docs-page-toc__list">
+          <li><a class="docs-page-toc__link" href="#setup">安装与配置</a></li>
+          <li><a class="docs-page-toc__link" href="#session">登录与会话</a></li>
+          <li><a class="docs-page-toc__link" href="#courses">课程与任务</a></li>
+          <li><a class="docs-page-toc__link" href="#data">成绩与课表</a></li>
+          <li><a class="docs-page-toc__link" href="#feedback">问题反馈</a></li>
+          </ul></nav>
           </aside>
         </div>
       </div>
     </main>
 
-    <footer class="site-footer">
-      <div class="site-footer__inner">
-        <div class="site-footer__brand">
-          <a class="wordmark site-footer__logo" href="https://reversedeer.com/" aria-label="Reversedeer，回到首页">
-            <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
-            
-          </a>
-          <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
-          <ul class="site-footer__links">
-            <li>
-              <a
-                class="footer-link footer-link--github"
-                href="https://github.com/Reversedeer"
-                target="_blank"
-                rel="noopener noreferrer"
-                ><svg class="icon footer-github__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="sr-only">GitHub（在新标签页打开）</span></a
-              >
-            </li>
-          </ul>
-        </div>
-        <div class="site-footer__legal">
-          <p class="site-footer__copy">
-            Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
-            <span class="site-footer__filing">
-              <a
-                class="footer-link"
-                href="https://beian.miit.gov.cn/"
-                target="_blank"
-                rel="noopener noreferrer"
-                >陕ICP备2021012255号</a
-              >
-            </span>
-          </p>
-        </div>
-      </div>
-    </footer>
+    <div class="site-footer">
+      <div class="footer-container">
+        <footer class="footer footer-content" aria-label="站点链接">
+          <div class="site-footer__brand">
+            <a
+              class="wordmark site-footer__logo"
+              href="https://reversedeer.com/"
+              aria-label="Reversedeer，回到首页"
+            >
+              <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
+            </a>
+            <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
+            <ul class="site-footer__links">
+              <li>
+                <a
+                  class="footer-link footer-link--github"
+                  href="https://github.com/Reversedeer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  ><svg
+                    class="icon footer-github__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path
+                      d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+                    /></svg
+                  ><span class="sr-only">GitHub（在新标签页打开）</span></a
+                >
+              </li>
+              <li>
+                <a
+                  class="footer-link footer-link--email"
+                  href="mailto:reversedeer@gmail.com"
+                  aria-label="发送邮件至 reversedeer@gmail.com"
+                >
+                  <svg
+                    class="icon footer-email__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <rect x="2" y="4" width="20" height="16" rx="2" />
+                    <path d="m3 6 9 7 9-7" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
 
-    <button
-      class="to-top"
-      type="button"
-      data-to-top
-      data-to-top-float
-      aria-label="回到顶部"
-    >
-      <svg
-        class="to-top__icon"
-        viewBox="0 0 256 256"
-        aria-hidden="true"
-        focusable="false"
-      >
+          <nav class="site-footer__col" aria-labelledby="footer-blog-title">
+            <h2 class="site-footer__col-title" id="footer-blog-title">BLOG</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/minecraft-hypixel.html"
+                  >Minecraft-Hypixel加速IP搭建教程</a
+                >
+              </li>
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/fonedogdatarecovery.html"
+                  >FoneDogDataRecovery</a
+                >
+              </li>
+              <li>
+                <a class="footer-link" href="https://blog.reversedeer.com/bt-installer.html"
+                  >宝塔面板的安装</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <nav class="site-footer__col" aria-labelledby="footer-docs-title">
+            <h2 class="site-footer__col-title" id="footer-docs-title">DOCS</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a class="footer-link" href="https://docs.reversedeer.com/urp-tools.html">URP Tools</a>
+              </li>
+              <li>
+                <a class="footer-link" href="https://docs.reversedeer.com/dy-video-parser.html"
+                  >抖音视频解析器</a
+                >
+              </li>
+            </ul>
+          </nav>
+
+          <nav class="site-footer__col" aria-labelledby="footer-blogroll-title">
+            <h2 class="site-footer__col-title" id="footer-blogroll-title">BLOGROLL</h2>
+            <ul class="site-footer__col-list">
+              <li>
+                <a
+                  class="footer-link footer-link--external"
+                  href="https://maohaoji.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >泰迪熊的小站<svg
+                    class="icon footer-external__icon"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                    focusable="false"
+                  >
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                    <path d="M15 3h6v6" />
+                    <path d="M10 14 21 3" />
+                  </svg><span class="sr-only">（在新标签页打开）</span></a
+                >
+              </li>
+            </ul>
+          </nav>
+        </footer>
+        <footer class="footer footer-center footer-copyright" aria-label="版权信息">
+          <div class="site-footer__legal">
+            <p class="site-footer__copy">
+              Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
+              <span class="site-footer__filing">
+                <a
+                  class="footer-link"
+                  href="https://beian.miit.gov.cn/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >陕ICP备2021012255号</a
+                >
+              </span>
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+
+    <button class="to-top" type="button" data-to-top data-to-top-float aria-label="回到顶部">
+      <svg class="to-top__icon" viewBox="0 0 256 256" aria-hidden="true" focusable="false">
         <path
           d="M205.66,117.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,164.69V40a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
         />

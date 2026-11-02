@@ -41,16 +41,16 @@ body {
 }
 
 .hero__title {
-  font-size: clamp(16px, 3.4vw, 40px);
+  font-size: clamp(28px, calc(20px + 2vw), 40px);
   font-weight: 600;
-  line-height: 1.45;
+  line-height: 1.5;
   letter-spacing: -0.01em;
   color: var(--fg);
 }
 
 .hero__title .line {
   display: block;
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   padding-block-end: 0.1em;
   margin-block-end: -0.1em;
@@ -185,6 +185,20 @@ body {
 
   .portal-card {
     min-height: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  /* 窄屏按完整文本换行，避免拆字动画让逗号落到行首。 */
+  .js .hero__title[data-split] .char,
+  .js .hero__title[data-split] .char__i {
+    display: inline;
+  }
+
+  .js .hero__title[data-split] .char__i {
+    translate: none;
+    opacity: 1;
+    transition: none;
   }
 }
 

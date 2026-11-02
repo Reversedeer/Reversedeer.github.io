@@ -47,6 +47,31 @@
   gap: clamp(14px, 2.2vw, 32px);
 }
 
+.nav-more {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.nav-more__panel {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2.2vw, 32px);
+}
+
+.nav-more__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  color: var(--fg);
+}
+
+.nav-more__toggle:hover {
+  background: var(--bg-elevated);
+}
+
 .nav-link {
   position: relative;
   display: inline-flex;
@@ -177,6 +202,10 @@
     visibility: hidden;
     pointer-events: none;
     transform: translateY(-10px);
+    transition: none;
+  }
+
+  .site-nav.is-menu-animating .site-nav__links {
     transition:
       opacity 0.3s var(--ease),
       transform 0.3s var(--ease),
@@ -191,8 +220,9 @@
   }
 
   .nav-link {
-    padding-block: var(--s-5);
-    font-size: 20px;
+    padding-block: var(--s-4);
+    font-size: 16px;
+    line-height: 1.5;
     border-block-end: 1px solid var(--line-soft);
   }
 
@@ -205,8 +235,8 @@
   }
 
   .nav-link .icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   .site-nav[data-open="true"] .nav-link {
@@ -274,4 +304,58 @@
 html.is-menu-open,
 html.is-menu-open body {
   overflow: hidden;
+}
+
+/* 先收起 GitHub 文字，再把次要操作放入更多菜单。 */
+@media (min-width: 1025px) and (max-width: 1279px) {
+  .nav-github__text {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav-more__toggle {
+    display: inline-flex;
+  }
+  .nav-more__panel {
+    display: none;
+    position: absolute;
+    inset-block-start: calc(100% + 8px);
+    inset-inline-end: 0;
+    min-width: 168px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--bg-raised);
+  }
+  .nav-more[data-more-open="true"] .nav-more__panel {
+    display: flex;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-more {
+    width: 100%;
+  }
+  .nav-more__panel {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+}
+
+/* 无 JS 时更多菜单中的链接仍可访问。 */
+html:not(.js) .nav-more__toggle {
+  display: none;
+}
+html:not(.js) .nav-more__panel {
+  display: flex;
+  position: static;
+  min-width: 0;
+  border: 0;
+  padding: 0;
+  background: transparent;
 }
