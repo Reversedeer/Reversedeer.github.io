@@ -1,0 +1,125 @@
+@charset "utf-8";
+/* theme-switch.css · 主题开关和主题切换过渡 */
+
+.theme-switch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 3em;
+  height: 1.6em;
+  flex: 0 0 auto;
+  padding-inline: 0.32em;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg-elevated);
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+.theme-switch:hover,
+.theme-switch:focus-visible {
+  border-color: var(--accent);
+}
+
+.theme-switch__icon {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 1.15em;
+  height: 1.15em;
+  color: var(--fg-3);
+  transition: color 0.3s var(--ease);
+}
+
+.theme-switch__icon .icon {
+  width: 0.78em;
+  height: 0.78em;
+}
+
+.theme-switch__icon--sun {
+  color: var(--accent);
+}
+
+.theme-switch__icon--sun .icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+:root[data-theme="dark"] .theme-switch__icon--sun {
+  color: var(--fg-3);
+}
+
+:root[data-theme="dark"] .theme-switch__icon--moon {
+  color: var(--accent);
+}
+
+.theme-switch__knob {
+  position: absolute;
+  z-index: 0;
+  inset-block-start: 50%;
+  inset-inline-start: 0.32em;
+  width: 1.2em;
+  height: 1.2em;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--bg);
+  transform: translateY(-50%);
+  transition:
+    translate 0.3s var(--ease),
+    background-color 0.3s var(--ease),
+    border-color 0.3s var(--ease);
+}
+
+:root[data-theme="dark"] .theme-switch__knob {
+  translate: 1.16em 0;
+}
+
+.theme-transition,
+.theme-transition *,
+.theme-transition *::before,
+.theme-transition *::after {
+  transition:
+    background-color 0.35s var(--ease),
+    color 0.35s var(--ease),
+    border-color 0.35s var(--ease),
+    fill 0.35s var(--ease),
+    stroke 0.35s var(--ease),
+    box-shadow 0.35s var(--ease) !important;
+}
+
+.theme-transition .theme-switch__knob {
+  transition:
+    translate 0.3s var(--ease),
+    background-color 0.35s var(--ease),
+    border-color 0.35s var(--ease) !important;
+}
+
+@media (max-width: 768px) {
+  .theme-switch {
+    align-self: flex-start;
+    margin-block: var(--s-3);
+    font-size: 1.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-transition,
+  .theme-transition *,
+  .theme-transition *::before,
+  .theme-transition *::after {
+    transition: none !important;
+  }
+
+  .theme-switch,
+  .theme-switch__knob,
+  .theme-switch__icon {
+    transition: none !important;
+  }
+}

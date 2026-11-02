@@ -1,0 +1,172 @@
+@charset "utf-8";
+/* animations.css · 首屏入场和滚动渐显 */
+
+.js .hero__title:not([data-split]) .line__i {
+  translate: 0 110%;
+  transition: translate 0.7s var(--ease);
+}
+
+.js .hero__title:not([data-split]) .line--1 .line__i {
+  transition-delay: 40ms;
+}
+
+.js .hero__title:not([data-split]) .line--2 .line__i {
+  transition-delay: 130ms;
+}
+
+.js .is-loaded .hero__title:not([data-split]) .line__i {
+  translate: 0 0;
+}
+
+.js .hero__title[data-split] .char {
+  display: inline-block;
+}
+
+.js .hero__title[data-split] .char__i {
+  display: inline-block;
+  translate: 0 130%;
+  opacity: 0;
+  transition:
+    translate 0.42s var(--ease),
+    opacity 0.32s linear;
+  transition-delay: calc(40ms + var(--ci, 0) * 12ms);
+}
+
+.js .is-loaded .hero__title[data-split] .char__i {
+  translate: 0 0;
+  opacity: 1;
+}
+
+.hero__title .accent {
+  padding-block-end: 0.04em;
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 2px;
+}
+
+.js .hero__title .accent {
+  background-size: 0% 2px;
+  transition: background-size 0.45s var(--ease) 0.42s;
+}
+
+.js .is-loaded .hero__title .accent {
+  background-size: 100% 2px;
+}
+
+.js .hero__eyebrow,
+.js .hero__lede,
+.js .hero__actions {
+  opacity: 0;
+  translate: 0 14px;
+  transition:
+    opacity 0.56s var(--ease),
+    translate 0.56s var(--ease);
+}
+
+.js .hero__eyebrow {
+  transition-delay: 20ms;
+}
+
+.js .hero__lede {
+  transition-delay: 250ms;
+}
+
+.js .hero__actions {
+  transition-delay: 340ms;
+}
+
+.js .is-loaded .hero__eyebrow,
+.js .is-loaded .hero__lede,
+.js .is-loaded .hero__actions {
+  opacity: 1;
+  translate: 0 0;
+}
+
+.is-settled .hero__title .line__i,
+.is-settled .hero__title .char__i,
+.is-settled .hero__eyebrow,
+.is-settled .hero__lede,
+.is-settled .hero__actions {
+  opacity: 1 !important;
+  translate: none !important;
+  transition: none !important;
+}
+
+.is-settled .hero__title .accent {
+  background-size: 100% 2px !important;
+  transition: none !important;
+}
+
+.js .reveal {
+  opacity: 0;
+  translate: 0 16px;
+  transition:
+    opacity 0.6s var(--ease),
+    translate 0.6s var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal--blur {
+  filter: blur(8px);
+  transition:
+    opacity 0.65s var(--ease),
+    translate 0.65s var(--ease),
+    filter 0.7s var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal--blur.is-in {
+  filter: blur(0);
+}
+
+.js .reveal--clip {
+  clip-path: inset(0 0 100% 0);
+  transition:
+    opacity 0.5s var(--ease),
+    translate 0.6s var(--ease),
+    clip-path 0.75s var(--ease);
+  transition-delay: calc(var(--i, 0) * 70ms);
+}
+
+.js .reveal--clip.is-in {
+  clip-path: inset(0 0 0 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .js .hero__title .line__i,
+  .js .hero__title .char__i,
+  .js .hero__eyebrow,
+  .js .hero__lede,
+  .js .hero__actions {
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+  }
+
+  .js .reveal--blur {
+    filter: none !important;
+  }
+
+  .js .reveal--clip {
+    clip-path: none !important;
+  }
+
+  .js .hero__title .accent {
+    background-size: 100% 2px !important;
+    transition: none !important;
+  }
+
+  .hero__inner {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

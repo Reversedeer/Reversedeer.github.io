@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Minecraft-Hypixel加速IP搭建教程 · Reversedeer</title>
+    <meta name="description" content="国内服务器建议上海，延迟略低丝毫不丢包，十分流畅 ，~~开寄~~ 足矣 。PVP如果要求很高很高的肯定是不会满意的，但人是一点不瞬移。 海外推荐香港CN2，美国CN2服务器，延迟超低，非常NICE。 " />
+    <link rel="canonical" href="https://blog.reversedeer.com/minecraft-hypixel.html" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="color-scheme" content="light dark" />
+<script>
+  /* theme-init：首帧前确定主题，避免深色模式闪白 */
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', '#0F1115');
+      }
+    } catch (err) {}
+  })();
+</script>
+    <link rel="icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="assets/css/fonts.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/typography.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/accessibility.css" />
+    <link rel="stylesheet" href="assets/css/branding.css" />
+    <link rel="stylesheet" href="assets/css/controls.css" />
+    <link rel="stylesheet" href="assets/css/header.css" />
+    <link rel="stylesheet" href="assets/css/footer.css" />
+    <link rel="stylesheet" href="assets/css/theme-switch.css" />
+    <link rel="stylesheet" href="assets/css/background-effects.css" />
+    <link rel="stylesheet" href="assets/css/page-transitions.css" />
+    <link rel="stylesheet" href="assets/css/animations.css" />
+    <link rel="stylesheet" href="assets/css/scroll-effects.css" />
+    <link rel="stylesheet" href="assets/css/pointer-effects.css" />
+    <link rel="stylesheet" href="assets/css/back-to-top.css" />
+    <link rel="stylesheet" href="assets/css/blog-layout.css" />
+    <link rel="stylesheet" href="assets/css/blog-header.css" />
+    <link rel="stylesheet" href="assets/css/article.css" />
+
+    <script>
+      /* 先落 .js 再绘制，避免入场动画的元素闪一下；
+       若 animations.js 三秒内没接管（脚本加载失败），撤掉 .js，内容立即可见。 */
+      document.documentElement.classList.add("js");
+      window.setTimeout(function () {
+        if (!document.documentElement.dataset.motion) {
+          document.documentElement.classList.remove("js");
+        }
+      }, 3000);
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳到主内容</a>
+    <div class="nav-sentinel" id="nav-sentinel" aria-hidden="true"></div>
+    <canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="scroll-progress" aria-hidden="true">
+      <span class="scroll-progress__bar"></span>
+    </div>
+
+    <header class="site-nav" data-nav data-open="false">
+      <div class="site-nav__inner">
+        <a
+          class="wordmark"
+          href="https://reversedeer.com/"
+          aria-label="Reversedeer，回到主页"
+        >
+          <img
+            class="wordmark__logo"
+            src="assets/favicon.ico"
+            alt=""
+            width="22"
+            height="22"
+          /><span class="wordmark__zh">Reversedeer</span>
+        </a>
+        <nav class="site-nav__links" id="site-nav-panel" aria-label="主导航">
+          <a class="nav-link" href="https://reversedeer.com/">首页</a>
+          <a class="nav-link" href="https://reversedeer.com/about.html">关于</a>
+          <a class="nav-link" href="index.html" aria-current="page">博客</a>
+          <a class="nav-link" href="https://docs.reversedeer.com/">文档</a>
+          <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="深色模式" data-theme-toggle>
+            <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+            <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
+            <span class="theme-switch__knob" aria-hidden="true"></span>
+          </button>
+          <a
+            class="nav-link"
+            href="https://github.com/Reversedeer"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><svg
+              class="icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"
+              /></svg
+            ><span>GitHub</span
+            ><span class="sr-only">（在新标签页打开）</span></a
+          >
+        </nav>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav-panel"
+          aria-label="打开菜单"
+        >
+          <svg
+            class="icon nav-toggle__open"
+            viewBox="0 0 256 256"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"
+            />
+          </svg>
+          <svg
+            class="icon nav-toggle__close"
+            viewBox="0 0 256 256"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <article class="post" aria-labelledby="post-title">
+        <div class="container post__container">
+          <div class="blog-head blog-head--post">
+            <a class="link-arrow post__back" href="index.html"
+              ><span
+                class="link-arrow__glyph post__back-glyph"
+                aria-hidden="true"
+                >←</span
+              >返回博客</a
+            >
+            <p class="post__meta blog-head__sub">
+              <time class="post__date" datetime="2022-09-06">2022-09-06</time>
+              <span class="post__sep" aria-hidden="true">·</span>
+              <span>阅读 3 分钟</span>
+            </p>
+            <h1 class="blog-head__title post__title" id="post-title">
+              <span class="blog-head__line"
+                ><span class="blog-head__line-in">Minecraft-Hypixel加速IP搭建教程</span></span
+              >
+            </h1>
+            
+          </div>
+
+          <div class="post__body"><h2 class="reveal" id="效果"><strong>效果：</strong><a class="post__anchor" href="#效果" aria-label="本节锚点：效果：">#</a></h2>
+<ul class="reveal">
+<li>国内服务器建议上海，延迟略低丝毫不丢包，十分流畅 ，<del>开寄</del> 足矣 。PVP如果要求很高很高的肯定是不会满意的，但人是一点不瞬移。</li>
+<li>海外推荐香港CN2，美国CN2服务器，延迟超低，非常NICE。</li>
+<li>推荐腾讯云的香港竞价实例SA2型，0.05r/h （作者同款，<del>现在用Golink</del>）。</li>
+</ul>
+<h2 class="reveal" id="准备工作"><strong>准备工作：</strong><a class="post__anchor" href="#准备工作" aria-label="本节锚点：准备工作：">#</a></h2>
+<ul class="reveal" style="--i: 1">
+<li>一个可以加速的VPS （国内推荐上海 国外推荐美国 香港)</li>
+<li>ssh 推荐windows/Ubuntu/自带的cmd或终端</li>
+<li>用法：ssh 用户名@服务器公网IP（例：ssh <a href="mailto:root@111.111.111.111">root@111.111.111.111</a>）</li>
+<li>安装CentOS7.6或者最近的版本最好一同安装BT</li>
+</ul>
+<h3 class="reveal" id="第一步ssh连接主机-打开宝塔面板确保一切就绪"><strong>第一步:SSH连接主机 打开宝塔面板确保一切就绪</strong><a class="post__anchor" href="#第一步ssh连接主机-打开宝塔面板确保一切就绪" aria-label="本节锚点：第一步:SSH连接主机 打开宝塔面板确保一切就绪">#</a></h3>
+<h3 class="reveal" id="第二步-分别输入如下指令-安装net"><strong>第二步 分别输入如下指令 安装.NET</strong><a class="post__anchor" href="#第二步-分别输入如下指令-安装net" aria-label="本节锚点：第二步 分别输入如下指令 安装.NET">#</a></h3>
+<pre class="reveal" style="--i: 2"><code>sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm  
+sudo yum install dotnet-runtime-3.1
+</code></pre>
+<h3 class="reveal" id="第三步-centos系统以及vps服务商的后台面板的防火墙放行"><strong>第三步 CentOS系统以及VPS服务商的后台面板的防火墙放行</strong><a class="post__anchor" href="#第三步-centos系统以及vps服务商的后台面板的防火墙放行" aria-label="本节锚点：第三步 CentOS系统以及VPS服务商的后台面板的防火墙放行">#</a></h3>
+<pre class="reveal"><code>firewall-cmd --state  #  查看防火墙运行状态，放行端口必须开启防火墙
+systemctl start firewalld.service  #  开启防火墙
+systemctl stop firewalld.service   #  关闭防火墙 
+</code></pre>
+<h4 class="reveal" id="放行25565端口"><strong>放行25565端口</strong><a class="post__anchor" href="#放行25565端口" aria-label="本节锚点：放行25565端口">#</a></h4>
+<pre class="reveal" style="--i: 1"><code>firewall-cmd --zone=public --add-port=25565/tcp --permanent  
+</code></pre>
+<h4 class="reveal" id="重载防火墙"><strong>重载防火墙</strong><a class="post__anchor" href="#重载防火墙" aria-label="本节锚点：重载防火墙">#</a></h4>
+<pre class="reveal" style="--i: 2"><code>firewall-cmd --reload  
+</code></pre>
+<h4 class="reveal" id="以腾讯云为例-防火墙放行"><strong>以腾讯云为例 防火墙放行</strong><a class="post__anchor" href="#以腾讯云为例-防火墙放行" aria-label="本节锚点：以腾讯云为例 防火墙放行">#</a></h4>
+<p class="reveal">在服务器面板找到 <strong>安全组</strong> 字样 然后打开 <code>添加规则</code> 协议TCP 端口就写一个25565 其他不变</p>
+<h4 class="reveal" id="安装宝塔面板-不会安装点这里"><strong>安装</strong>宝塔面板-不会安装<a href="https://yangshaojie.com/bt-wordpress-linux/.html">点这里</a><a class="post__anchor" href="#安装宝塔面板-不会安装点这里" aria-label="本节锚点：安装宝塔面板-不会安装点这里">#</a></h4>
+<h3 class="reveal" id="第四步-上传作者的脚本"><strong>第四步 上传作者的脚本</strong><a class="post__anchor" href="#第四步-上传作者的脚本" aria-label="本节锚点：第四步 上传作者的脚本">#</a></h3>
+<p class="reveal" style="--i: 1"><a href="https://mc.yangshaojie.com/?f=/Hypixel%E5%8A%A0%E9%80%9FIP">点击下载</a></p>
+<h4 class="reveal" id="上传方法使用宝塔面板">上传方法–使用宝塔面板<a class="post__anchor" href="#上传方法使用宝塔面板" aria-label="本节锚点：上传方法–使用宝塔面板">#</a></h4>
+<p class="reveal" style="--i: 2">一种比较方便的是在宝塔面板上传 在 <strong>首页→文件</strong> 里面找到 <code>根目录**/opt**</code>
+然后点击宝塔面板的上传 选择文件 把文件上传到这里</p>
+<p class="reveal"><img src="/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-1.png" alt="img"></p>
+<h3 class="reveal" id="第五步-启用脚本"><strong>第五步 启用脚本</strong><a class="post__anchor" href="#第五步-启用脚本" aria-label="本节锚点：第五步 启用脚本">#</a></h3>
+<p class="reveal" style="--i: 1">打开你的SSH工具（cmd） 输入 <code>cd /opt</code> 来切换到opt目录
+然后输入</p>
+<pre class="reveal" style="--i: 2"><code>dotnet ./MinecraftProxy2.dll
+</code></pre>
+<p class="reveal">脚本开始运行</p>
+<p class="reveal" style="--i: 1"><img src="/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-2.png" alt="img"></p>
+<p class="reveal" style="--i: 2">然后以Hypixel为例 其他服务器也行
+在 <code>server</code> 后面输入 <code>mc.hypixel.ne</code>t
+<code>port</code> 后面输入 <code>25565</code>
+<code>local-port</code> 后面也输入 <code>25565</code>
+至此 恭喜你 你的IP搭建完成了</p>
+<h2 class="reveal" id="重要提醒"><strong>重要提醒</strong><a class="post__anchor" href="#重要提醒" aria-label="本节锚点：重要提醒">#</a></h2>
+<p class="reveal">::: danger
+脚本开始运行后 请保持终端持续运行 勿退出终端 否则加速失败
+建议安装screen来让终端持续后台运行
+:::</p>
+<pre class="reveal" style="--i: 1"><code># 安装Screen  请先检查是否装有yum（输入yum以检查）
+yum install screen -y
+screen
+dotnet ./MinecraftProxy2.dll
+</code></pre>
+<p class="reveal" style="--i: 2">::: tip
+一些screen 指令:
+:::</p>
+<pre class="reveal"><code> screen -S MC # 创建一个叫做MC的screen
+
+ screen -ls  # 查看所有创建的窗口
+
+ screen -r MC # 返回叫做MC的窗口
+
+ quit # 结束并退出当前screen 或使用快捷键Ctrl-a-k
+
+ screen -S MC -X quit # 将MC窗口强制关闭
+</code></pre>
+<blockquote class="reveal" style="--i: 1">
+<p class="reveal" style="--i: 2">本文章内容具体来自B站up:<a href="https://space.bilibili.com/280675577">多多-2333</a>及脚本，视频来源：<strong><a href="https://www.bilibili.com/video/BV1sq4y1n7cD">https://www.bilibili.com/video/BV1sq4y1n7cD</a></strong></p>
+</blockquote></div>
+
+          <nav class="post-nav" aria-label="文章导航">
+            <a class="post-nav__item" href="fonedogdatarecovery.html">
+              <span class="post-nav__label mono">下一篇</span>
+              <span class="post-nav__title">FoneDogDataRecovery</span>
+            </a>
+          </nav>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <a class="wordmark site-footer__logo" href="https://reversedeer.com/" aria-label="Reversedeer，回到首页">
+            <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
+            
+          </a>
+          <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
+          <ul class="site-footer__links">
+            <li>
+              <a
+                class="footer-link footer-link--github"
+                href="https://github.com/Reversedeer"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg class="icon footer-github__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="sr-only">GitHub（在新标签页打开）</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="site-footer__legal">
+          <p class="site-footer__copy">
+            Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
+            <span class="site-footer__filing">
+              <a
+                class="footer-link"
+                href="https://beian.miit.gov.cn/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >陕ICP备2021012255号</a
+              >
+            </span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <button
+      class="to-top"
+      type="button"
+      data-to-top
+      data-to-top-float
+      aria-label="回到顶部"
+    >
+      <svg
+        class="to-top__icon"
+        viewBox="0 0 256 256"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path
+          d="M205.66,117.66l-72,72a8,8,0,0,1-11.32,0l-72-72a8,8,0,0,1,11.32-11.32L120,164.69V40a8,8,0,0,1,16,0V164.69l58.34-58.35a8,8,0,0,1,11.32,11.32Z"
+        />
+      </svg>
+    </button>
+
+    <script src="assets/js/local-links.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/pointer-effects.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/back-to-top.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/background-effects.js" defer></script>
+  </body>
+</html>

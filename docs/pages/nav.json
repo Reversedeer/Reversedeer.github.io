@@ -1,0 +1,6 @@
+[
+  { "group": "开始", "pages": ["index", "preview"] },
+  { "group": "结构", "pages": ["structure", "deploy", "blog"] },
+  { "group": "约定", "pages": ["tokens", "motion", "rules"] },
+  { "group": "帮助", "pages": ["faq"] }
+]

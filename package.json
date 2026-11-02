@@ -1,0 +1,14 @@
+{
+  "name": "reversedeer-web",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:blog": "node scripts/build-blog.js",
+    "build:docs": "node scripts/build-docs.js",
+    "build": "npm run build:blog && npm run build:docs"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^18.1.2"
+  }
+}

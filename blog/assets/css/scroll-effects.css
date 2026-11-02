@@ -1,0 +1,109 @@
+@charset "utf-8";
+/* scroll-effects.css · 滚动漂移和阅读进度条 */
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero__inner {
+      animation: xu-hero-drift linear both;
+      animation-timeline: scroll(root block);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@keyframes xu-hero-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  to {
+    transform: translate3d(0, -60px, 0);
+    opacity: 0.28;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .post-list {
+      animation: xu-list-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 4% cover 78%;
+    }
+  }
+}
+
+@keyframes xu-list-drift {
+  from {
+    transform: translate3d(0, 24px, 0);
+  }
+  to {
+    transform: translate3d(0, -24px, 0);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .fx-drift {
+      animation: xu-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 62%;
+    }
+  }
+}
+
+@keyframes xu-drift {
+  from {
+    transform: translate3d(var(--fx-from, 0px), var(--fy-from, 22px), 0);
+  }
+  to {
+    transform: translate3d(var(--fx-to, 0px), var(--fy-to, -14px), 0);
+  }
+}
+
+.scroll-progress {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline: 0;
+  z-index: 200;
+  display: none;
+  height: 2px;
+  pointer-events: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+  }
+
+  .scroll-progress__bar {
+    display: block;
+    height: 100%;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left center;
+    animation: xu-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes xu-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-list,
+  .fx-drift {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .scroll-progress {
+    display: none;
+  }
+}

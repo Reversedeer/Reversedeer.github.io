@@ -1,0 +1,85 @@
+@charset "utf-8";
+/* theme.css · 浅色与深色主题、颜色、尺寸和间距变量 */
+
+:root {
+  --bg: #ffffff;
+  --bg-raised: #faf9f6;
+  --bg-elevated: #f4f2ed;
+  --code-bg: #f1f4f8;
+  --line: #dedad2;
+  --line-soft: #ece9e3;
+  --fg: #24211d;
+  --fg-2: #57534e;
+  --fg-3: #746f68;
+  --accent: #002fa7;
+  --accent-tint: #00227a;
+  --accent-wash: rgba(0, 47, 167, 0.1);
+
+  --radius: 8px;
+  --maxw: 1300px;
+  --gutter: clamp(12px, 2.5vw, 32px);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 24px;
+  --s-6: 32px;
+  --s-7: 48px;
+  --s-8: 64px;
+  --s-9: 96px;
+  --s-10: 128px;
+
+  --font-sans:
+    "PingFang SC", "HarmonyOS Sans SC", "Source Han Sans SC", "Microsoft YaHei", system-ui,
+    sans-serif;
+  --font-mono: "JBMono", ui-monospace, SFMono-Regular, Consolas, monospace;
+
+  --fs-hero: clamp(32px, 4vw, 40px);
+  --lh-hero: 1.06;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --lh-h2: 1.15;
+  --fs-h3: 18px;
+  --lh-h3: 1.4;
+  --fs-body: 15px;
+  --lh-body: 1.75;
+  --fs-small: 13px;
+  --fs-mono: 12px;
+  --track-mono: 0.12em;
+
+  --nav-h: 68px;
+  --nav-h-condensed: 56px;
+}
+
+:root {
+  color-scheme: light;
+  --accent-solid: #002fa7;
+  --accent-solid-hover: #00227a;
+  --canvas-accent: 0, 47, 167;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  background: var(--bg);
+  --bg: #0f1115;
+  --bg-raised: #161a21;
+  --bg-elevated: #1c212a;
+  --code-bg: #1b2330;
+  --line: #2c333e;
+  --line-soft: #232932;
+  --fg: #f2f4f7;
+  --fg-2: #b9c0cc;
+  --fg-3: #8c95a3;
+  --accent: #7e9cff;
+  --accent-tint: #a9bcff;
+  --accent-wash: rgba(126, 156, 255, 0.16);
+  --accent-solid: #2447d8;
+  --accent-solid-hover: #1c39b8;
+  --canvas-accent: 126, 156, 255;
+}
+
+:root[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--fg);
+}

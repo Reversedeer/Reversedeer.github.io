@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* docs-header.css · 文档标题、摘要和面包屑 */
+
+.docs-head {
+  max-width: none;
+  padding-block-end: var(--s-4);
+  margin-block-end: var(--s-6);
+}
+
+.docs-breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-block-end: var(--s-4);
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  color: var(--fg-3);
+}
+
+.docs-breadcrumb a {
+  color: var(--fg-2);
+  transition: color 0.25s var(--ease);
+}
+
+.docs-breadcrumb a:hover,
+.docs-breadcrumb a:focus-visible {
+  color: var(--accent);
+}
+
+.docs-head__title {
+  font-size: clamp(32px, 3.6vw, 40px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.docs-head__lede {
+  margin-block-start: var(--s-4);
+  max-width: 46em;
+  color: var(--fg-2);
+}
+
+@media (max-width: 768px) {
+  .docs-head {
+    margin-block-end: var(--s-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .docs-breadcrumb a {
+    transition: none;
+  }
+}

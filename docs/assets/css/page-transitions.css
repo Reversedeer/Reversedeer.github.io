@@ -1,0 +1,33 @@
+@charset "utf-8";
+/* page-transitions.css · 页面切换动画 */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: xu-vt-out 0.16s ease both;
+}
+
+::view-transition-new(root) {
+  animation: xu-vt-in 0.3s var(--ease) both;
+}
+
+@keyframes xu-vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes xu-vt-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}

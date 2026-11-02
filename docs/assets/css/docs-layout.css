@@ -1,0 +1,39 @@
+@charset "utf-8";
+/* docs-layout.css · 文档页面布局和响应式分栏 */
+
+body {
+  --maxw: 1440px;
+}
+
+.docs-shell {
+  padding-block-start: calc(var(--nav-h) + var(--s-6));
+  padding-block-end: var(--s-9);
+}
+
+.docs-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 200px;
+  gap: clamp(32px, 4vw, 56px);
+  align-items: start;
+}
+
+.docs-main {
+  min-width: 0;
+}
+
+@media (max-width: 1199px) {
+  .docs-layout {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .docs-shell {
+    padding-block-start: calc(var(--nav-h) + var(--s-5));
+  }
+
+  .docs-layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-6);
+  }
+}

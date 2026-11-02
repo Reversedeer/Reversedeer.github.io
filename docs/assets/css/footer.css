@@ -1,0 +1,93 @@
+@charset "utf-8";
+/* footer.css · 页尾、版权、备案和社交图标 */
+
+.site-footer {
+  position: relative;
+  z-index: 1;
+  border-block-start: 1px solid var(--line-soft);
+  padding-block: var(--s-7) var(--s-5);
+  background: #f5f5f5;
+}
+
+:root[data-theme="dark"] .site-footer {
+  background: var(--bg-raised);
+}
+
+.site-footer__inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: var(--s-6);
+}
+
+.site-footer__description {
+  margin-block-start: var(--s-1);
+  font-size: 14px;
+  color: var(--fg);
+}
+
+.site-footer__logo .wordmark__logo {
+  width: 24px;
+  height: 24px;
+}
+
+.site-footer__legal {
+  grid-column: 1 / -1;
+  text-align: center;
+}
+
+.site-footer__copy {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--fg);
+}
+
+.site-footer__filing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-block-start: 6px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.site-footer__links {
+  display: flex;
+  align-items: center;
+  gap: var(--s-5);
+  margin-block-start: var(--s-1);
+  font-family: inherit;
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+.footer-link {
+  color: var(--fg);
+  transition: color 0.25s var(--ease);
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  color: var(--accent);
+}
+
+.footer-link--github {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 44px;
+  height: 44px;
+  margin-inline-start: 0;
+}
+
+.footer-github__icon {
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* typography.css · 标题、正文和文字工具类 */
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+time {
+  font-variant-numeric: tabular-nums;
+}
+
+::selection {
+  background: var(--accent-wash);
+  color: var(--fg);
+}
+
+h1 {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+h3 {
+  font-size: var(--fs-h3);
+  line-height: var(--lh-h3);
+  font-weight: 600;
+  color: var(--fg);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+strong {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.mono {
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  font-weight: 400;
+  letter-spacing: var(--track-mono);
+  text-transform: uppercase;
+}
+
+.accent {
+  color: var(--accent);
+}

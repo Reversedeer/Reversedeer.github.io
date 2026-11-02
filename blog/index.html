@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>博客 · Reversedeer</title>
+    <meta
+      name="description"
+      content="Reversedeer 的博客，前端工程、设计系统与动效的笔记，按年份归档。"
+    />
+    <link rel="canonical" href="https://blog.reversedeer.com/" />
+    <meta name="theme-color" content="#FFFFFF" />
+    <meta name="color-scheme" content="light dark" />
+<script>
+  /* theme-init：首帧前确定主题，避免深色模式闪白 */
+  (function () {
+    try {
+      var saved = localStorage.getItem('theme');
+      var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+      if (dark) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', '#0F1115');
+      }
+    } catch (err) {}
+  })();
+</script>
+    <link rel="icon" href="assets/favicon.ico" />
+    <link rel="stylesheet" href="assets/css/fonts.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
+    <link rel="stylesheet" href="assets/css/reset.css" />
+    <link rel="stylesheet" href="assets/css/typography.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+    <link rel="stylesheet" href="assets/css/accessibility.css" />
+    <link rel="stylesheet" href="assets/css/branding.css" />
+    <link rel="stylesheet" href="assets/css/controls.css" />
+    <link rel="stylesheet" href="assets/css/header.css" />
+    <link rel="stylesheet" href="assets/css/footer.css" />
+    <link rel="stylesheet" href="assets/css/theme-switch.css" />
+    <link rel="stylesheet" href="assets/css/background-effects.css" />
+    <link rel="stylesheet" href="assets/css/page-transitions.css" />
+    <link rel="stylesheet" href="assets/css/animations.css" />
+    <link rel="stylesheet" href="assets/css/scroll-effects.css" />
+    <link rel="stylesheet" href="assets/css/pointer-effects.css" />
+    <link rel="stylesheet" href="assets/css/back-to-top.css" />
+    <link rel="stylesheet" href="assets/css/post-list.css" />
+    <link rel="stylesheet" href="assets/css/blog-layout.css" />
+    <link rel="stylesheet" href="assets/css/blog-header.css" />
+    <link rel="stylesheet" href="assets/css/blog-list.css" />
+
+    <script>
+      /* 先落 .js 再绘制，避免入场动画的元素闪一下；
+       若 animations.js 三秒内没接管（脚本加载失败），撤掉 .js，内容立即可见。 */
+      document.documentElement.classList.add("js");
+      window.setTimeout(function () {
+        if (!document.documentElement.dataset.motion) {
+          document.documentElement.classList.remove("js");
+        }
+      }, 3000);
+    </script>
+  </head>
+  <body class="blog-index">
+    <a class="skip-link" href="#main">跳到主内容</a>
+    <div class="nav-sentinel" id="nav-sentinel" aria-hidden="true"></div>
+    <canvas class="bg-canvas" id="bg-canvas" aria-hidden="true"></canvas>
+    <div class="scroll-progress" aria-hidden="true">
+      <span class="scroll-progress__bar"></span>
+    </div>
+
+    <header class="site-nav" data-nav data-open="false">
+      <div class="site-nav__inner">
+        <a
+          class="wordmark"
+          href="https://reversedeer.com/"
+          aria-label="Reversedeer，回到主页"
+        >
+          <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" /><span class="wordmark__zh">Reversedeer</span>
+        </a>
+        <nav class="site-nav__links" id="site-nav-panel" aria-label="主导航">
+          <a class="nav-link" href="https://reversedeer.com/">首页</a>
+          <a class="nav-link" href="https://reversedeer.com/about.html">关于</a>
+          <a class="nav-link" href="index.html" aria-current="page">博客</a>
+          <a class="nav-link" href="https://docs.reversedeer.com/">文档</a>
+          <button class="theme-switch" type="button" role="switch" aria-checked="false" aria-label="深色模式" data-theme-toggle>
+            <span class="theme-switch__icon theme-switch__icon--sun" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg></span>
+            <span class="theme-switch__icon theme-switch__icon--moon" aria-hidden="true"><svg class="icon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></span>
+            <span class="theme-switch__knob" aria-hidden="true"></span>
+          </button>
+          <a
+            class="nav-link"
+            href="https://github.com/Reversedeer"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><svg class="icon" viewBox="0 0 24 24"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg
+            ><span>GitHub</span
+            ><span class="sr-only">（在新标签页打开）</span></a
+          >
+        </nav>
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav-panel"
+          aria-label="打开菜单"
+        >
+          <svg
+            class="icon nav-toggle__open"
+            viewBox="0 0 256 256"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"
+            />
+          </svg>
+          <svg
+            class="icon nav-toggle__close"
+            viewBox="0 0 256 256"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="blog-head" aria-labelledby="blog-title">
+        <div class="container">
+          <h1 class="blog-head__title" id="blog-title">
+            <span class="blog-head__line"
+              ><span class="blog-head__line-in">博客</span></span
+            >
+          </h1>
+          <p class="blog-head__sub">做过的事，做错的地方，都记在这里。</p>
+        </div>
+      </section>
+
+      <div class="blog-groups">
+        <div class="container">
+          <!-- build:posts:start -->
+          <section class="blog-group" aria-labelledby="year-2022">
+            <div class="section__head reveal">
+              <h2 class="blog-year fx-drift" id="year-2022">2022</h2>
+            </div>
+            <ul class="post-list">
+              <li class="post-row reveal" style="--i: 0">
+                <a class="post-row__link" href="minecraft-hypixel.html">
+                  <time class="post-row__date" datetime="2022-09-06">2022-09-06</time>
+                  <span class="post-row__title">Minecraft-Hypixel加速IP搭建教程</span>
+                </a>
+              </li>
+              <li class="post-row reveal" style="--i: 1">
+                <a class="post-row__link" href="fonedogdatarecovery.html">
+                  <time class="post-row__date" datetime="2022-06-11">2022-06-11</time>
+                  <span class="post-row__title">FoneDogDataRecovery</span>
+                </a>
+              </li>
+              <li class="post-row reveal" style="--i: 2">
+                <a class="post-row__link" href="bt-installer.html">
+                  <time class="post-row__date" datetime="2022-03-17">2022-03-17</time>
+                  <span class="post-row__title">宝塔面板的安装</span>
+                </a>
+              </li>
+            </ul>
+          </section>
+          <!-- build:posts:end -->
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="site-footer__inner">
+        <div class="site-footer__brand">
+          <a class="wordmark site-footer__logo" href="https://reversedeer.com/" aria-label="Reversedeer，回到首页">
+            <img class="wordmark__logo" src="assets/favicon.ico" alt="" width="22" height="22" />
+            
+          </a>
+          <p class="site-footer__description">Reversedeer`s Blog &amp; Docs</p>
+          <ul class="site-footer__links">
+            <li>
+              <a
+                class="footer-link footer-link--github"
+                href="https://github.com/Reversedeer"
+                target="_blank"
+                rel="noopener noreferrer"
+                ><svg class="icon footer-github__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span class="sr-only">GitHub（在新标签页打开）</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="site-footer__legal">
+          <p class="site-footer__copy">
+            Copyright © 2021-<span data-year>2026</span> Reversedeer. All rights reserved.
+            <span class="site-footer__filing">
+              <a class="footer-link" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">陕ICP备2021012255号</a>
+            </span>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="assets/js/local-links.js" defer></script>
+    <script src="assets/js/animations.js" defer></script>
+    <script src="assets/js/navigation.js" defer></script>
+    <script src="assets/js/pointer-effects.js" defer></script>
+    <script src="assets/js/footer.js" defer></script>
+    <script src="assets/js/back-to-top.js" defer></script>
+    <script src="assets/js/theme.js" defer></script>
+    <script src="assets/js/background-effects.js" defer></script>
+  </body>
+</html>

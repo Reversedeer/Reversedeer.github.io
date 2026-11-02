@@ -1,0 +1,71 @@
+@charset "utf-8";
+/* reset.css · 浏览器默认样式重置和页面基础行为 */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+  scroll-behavior: smooth;
+  scroll-padding-block-start: var(--nav-h);
+}
+
+body {
+  margin: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--fg-2);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h4,
+figure,
+blockquote,
+ul,
+ol,
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+canvas,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}

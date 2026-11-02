@@ -1,0 +1,54 @@
+@charset "utf-8";
+/* blog-list.css · 博客列表、年份分组、标签和短页面布局 */
+
+.blog-index {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+}
+
+.blog-index > main {
+  flex: 1 0 auto;
+}
+
+.blog-index > .site-footer {
+  flex-shrink: 0;
+}
+
+.blog-groups {
+  position: relative;
+  z-index: 1;
+  padding-block-end: clamp(64px, 9vw, 120px);
+}
+
+.blog-group + .blog-group {
+  margin-block-start: clamp(48px, 6vw, 88px);
+}
+
+.blog-year {
+  font-family: var(--font-mono);
+  font-size: var(--fs-h2);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--fg);
+}
+
+.blog-tag {
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: var(--fs-mono);
+  letter-spacing: var(--track-mono);
+  color: var(--fg-2);
+  transition: color 0.3s var(--ease);
+}
+
+.post-row__link:hover .blog-tag {
+  color: var(--accent);
+}
+
+@media (max-width: 560px) {
+  .blog-tag {
+    order: 2;
+  }
+}

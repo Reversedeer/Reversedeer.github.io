@@ -1,0 +1,8 @@
+@charset "utf-8";
+/* post-list.css · 文章列表行和列表段落头 */
+
+@media (prefers-reduced-motion: reduce) {
+  .post-row__link {
+    transform: none;
+  }
+}

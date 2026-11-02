@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* pointer-effects.css · 磁性按钮和卡片倾斜 */
+
+.magnetic {
+  will-change: transform;
+}
+
+.magnetic.is-tracking {
+  transition: transform 0.12s linear;
+}
+
+.magnetic.is-settling {
+  transition: transform 0.5s var(--ease);
+}
+
+.tilt {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.tilt.is-tilting {
+  transition: transform 0.16s linear;
+}
+
+.tilt.is-settling {
+  transition: transform 0.55s var(--ease);
+}
+
+.tilt::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    260px circle at var(--mx, 50%) var(--my, 50%),
+    var(--accent-wash),
+    transparent 70%
+  );
+  transition: opacity 0.3s var(--ease);
+}
+
+.tilt:hover::after,
+.tilt.is-tilting::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .magnetic,
+  .magnetic.is-tracking,
+  .magnetic.is-settling,
+  .tilt,
+  .tilt.is-tilting,
+  .tilt.is-settling {
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .tilt::after {
+    display: none;
+  }
+}
