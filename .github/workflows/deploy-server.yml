@@ -1,0 +1,68 @@
+name: Deploy Server
+
+on:
+  workflow_run:
+    workflows:
+      - Build Site
+    types:
+      - completed
+    branches:
+      - main
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  DEPLOY_PATH_MAIN: /www/sites/reversedeer.com/index
+  DEPLOY_PATH_BLOG: /www/sites/blog.reversedeer.com/index
+  DEPLOY_PATH_DOCS: /www/sites/docs.reversedeer.com/index
+
+jobs:
+  deploy-server:
+    runs-on: ubuntu-latest
+    env:
+      DEPLOY_HOST: ${{ secrets.DEPLOY_HOST }}
+      DEPLOY_USER: ${{ secrets.DEPLOY_USER }}
+      DEPLOY_SSH_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+      DEPLOY_PORT: ${{ secrets.DEPLOY_PORT }}
+    steps:
+      - name: Download Site data
+        uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          printf '%s\n' "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$DEPLOY_PORT" -H "$DEPLOY_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          SSH_CMD="ssh -i $HOME/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=yes"
+          TARGET="$DEPLOY_USER@$DEPLOY_HOST"
+
+          rsync -azc --delete --exclude '/blog/' --exclude '/docs/' \
+            -e "$SSH_CMD" dist/ "$TARGET:$DEPLOY_PATH_MAIN/"
+
+          rsync -azc --delete \
+            -e "$SSH_CMD" dist/blog/ "$TARGET:$DEPLOY_PATH_BLOG/"
+
+          rsync -azc --delete \
+            -e "$SSH_CMD" dist/docs/ "$TARGET:$DEPLOY_PATH_DOCS/"
+
+      - name: Upload Site data for backup
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          retention-days: 7

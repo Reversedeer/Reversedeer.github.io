@@ -1,0 +1,69 @@
+name: Build Site
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "blog/**"
+      - "docs/**"
+      - "assets/**"
+      - "scripts/**"
+      - "index.html"
+      - "about.html"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/**"
+
+concurrency:
+  group: site-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 12.16.1
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        run: pnpm build
+
+      - name: Prepare deployment artifacts
+        run: |
+          mkdir -p dist
+          cp index.html about.html dist/
+          cp -r assets dist/assets
+
+          mkdir -p dist/blog
+          cp -r blog/. dist/blog/
+          rm -rf dist/blog/posts
+
+          mkdir -p dist/docs
+          cp -r docs/. dist/docs/
+          rm -rf dist/docs/pages
+
+      - name: Upload Site data
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist
+          retention-days: 7
