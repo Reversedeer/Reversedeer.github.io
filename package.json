@@ -5,10 +5,13 @@
   "scripts": {
     "build:blog": "node scripts/build-blog.js",
     "build:docs": "node scripts/build-docs.js",
-    "build": "npm run build:blog && npm run build:docs"
+    "build": "pnpm run build:blog && pnpm run build:docs",
+    "dev": "serve . -l 8130"
   },
+  "packageManager": "pnpm@12.16.1",
   "devDependencies": {
     "gray-matter": "^4.0.3",
-    "marked": "^18.1.2"
+    "marked": "^18.1.2",
+    "serve": "^14.2.6"
   }
 }

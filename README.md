@@ -12,15 +12,15 @@ git clone https://github.com/Reversedeer/Reversedeer.github.io.git
 首次使用先安装构建依赖：
 
 ```bash
-npm install
+pnpm install
 ```
 然后：
 
 ```bash
-npm run build
+pnpm run build
 ```
 启动服务:
 
 ```bash
-python -m http.server 8130
+pnpm run dev
 ```
