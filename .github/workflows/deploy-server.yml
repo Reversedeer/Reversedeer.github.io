@@ -51,13 +51,13 @@ jobs:
           SSH_CMD="ssh -i $HOME/.ssh/deploy_key -p $DEPLOY_PORT -o StrictHostKeyChecking=yes"
           TARGET="$DEPLOY_USER@$DEPLOY_HOST"
 
-          rsync -azc --delete --exclude '/blog/' --exclude '/docs/' \
+          rsync -rlptzc --exclude '/blog/' --exclude '/docs/' \
             -e "$SSH_CMD" dist/ "$TARGET:$DEPLOY_PATH_MAIN/"
 
-          rsync -azc --delete \
+          rsync -rlptzc \
             -e "$SSH_CMD" dist/blog/ "$TARGET:$DEPLOY_PATH_BLOG/"
 
-          rsync -azc --delete \
+          rsync -rlptzc \
             -e "$SSH_CMD" dist/docs/ "$TARGET:$DEPLOY_PATH_DOCS/"
 
       - name: Upload Site data for backup
