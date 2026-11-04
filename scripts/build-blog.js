@@ -190,17 +190,17 @@ function postNavHtml(newer, older) {
   const items = [];
   if (newer) {
     items.push(
-      '            <a class="post-nav__item" href="' + newer.slug + '.html">\n' +
+      '            <a class="post-nav__item post-nav__item--previous" href="' + newer.slug + '.html" rel="prev">\n' +
       '              <span class="post-nav__label mono">上一篇</span>\n' +
-      '              <span class="post-nav__title">' + escapeHtml(newer.title) + '</span>\n' +
+      '              <span class="post-nav__title"><span class="post-nav__arrow" aria-hidden="true">«</span><span class="post-nav__text">' + escapeHtml(newer.title) + '</span></span>\n' +
       '            </a>'
     );
   }
   if (older) {
     items.push(
-      '            <a class="post-nav__item" href="' + older.slug + '.html">\n' +
+      '            <a class="post-nav__item post-nav__item--next" href="' + older.slug + '.html" rel="next">\n' +
       '              <span class="post-nav__label mono">下一篇</span>\n' +
-      '              <span class="post-nav__title">' + escapeHtml(older.title) + '</span>\n' +
+      '              <span class="post-nav__title"><span class="post-nav__text">' + escapeHtml(older.title) + '</span><span class="post-nav__arrow" aria-hidden="true">»</span></span>\n' +
       '            </a>'
     );
   }
