@@ -60,10 +60,3 @@ jobs:
 
           rsync -rlzc --delete --itemize-changes \
             -e "$SSH_CMD" dist/docs/ "$TARGET:$DEPLOY_PATH_DOCS/"
-
-      - name: Upload Site data for backup
-        uses: actions/upload-artifact@v4
-        with:
-          name: site
-          path: dist
-          retention-days: 7
