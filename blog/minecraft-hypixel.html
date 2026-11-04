@@ -46,8 +46,6 @@
     <link rel="stylesheet" href="assets/css/article.css" />
 
     <script>
-      /* 先落 .js 再绘制，避免入场动画的元素闪一下；
-       若 animations.js 三秒内没接管（脚本加载失败），撤掉 .js，内容立即可见。 */
       document.documentElement.classList.add("js");
       window.setTimeout(function () {
         if (!document.documentElement.dataset.motion) {
@@ -214,33 +212,31 @@ systemctl stop firewalld.service   #  关闭防火墙
 <h4 class="reveal" id="上传方法使用宝塔面板">上传方法–使用宝塔面板<a class="post__anchor" href="#上传方法使用宝塔面板" aria-label="本节锚点：上传方法–使用宝塔面板">#</a></h4>
 <p class="reveal" style="--i: 2">一种比较方便的是在宝塔面板上传 在 <strong>首页→文件</strong> 里面找到 <code>根目录**/opt**</code>
 然后点击宝塔面板的上传 选择文件 把文件上传到这里</p>
-<p class="reveal"><img src="/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-1.png" alt="img"></p>
 <h3 class="reveal" id="第五步-启用脚本"><strong>第五步 启用脚本</strong><a class="post__anchor" href="#第五步-启用脚本" aria-label="本节锚点：第五步 启用脚本">#</a></h3>
-<p class="reveal" style="--i: 1">打开你的SSH工具（cmd） 输入 <code>cd /opt</code> 来切换到opt目录
+<p class="reveal">打开你的SSH工具（cmd） 输入 <code>cd /opt</code> 来切换到opt目录
 然后输入</p>
-<pre class="reveal" style="--i: 2"><code>dotnet ./MinecraftProxy2.dll
+<pre class="reveal" style="--i: 1"><code>dotnet ./MinecraftProxy2.dll
 </code></pre>
-<p class="reveal">脚本开始运行</p>
-<p class="reveal" style="--i: 1"><img src="/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-2.png" alt="img"></p>
-<p class="reveal" style="--i: 2">然后以Hypixel为例 其他服务器也行
+<p class="reveal" style="--i: 2">脚本开始运行</p>
+<p class="reveal">然后以Hypixel为例 其他服务器也行
 在 <code>server</code> 后面输入 <code>mc.hypixel.ne</code>t
 <code>port</code> 后面输入 <code>25565</code>
 <code>local-port</code> 后面也输入 <code>25565</code>
 至此 恭喜你 你的IP搭建完成了</p>
 <h2 class="reveal" id="重要提醒"><strong>重要提醒</strong><a class="post__anchor" href="#重要提醒" aria-label="本节锚点：重要提醒">#</a></h2>
-<p class="reveal">::: danger
+<p class="reveal" style="--i: 1">::: danger
 脚本开始运行后 请保持终端持续运行 勿退出终端 否则加速失败
 建议安装screen来让终端持续后台运行
 :::</p>
-<pre class="reveal" style="--i: 1"><code># 安装Screen  请先检查是否装有yum（输入yum以检查）
+<pre class="reveal" style="--i: 2"><code># 安装Screen  请先检查是否装有yum（输入yum以检查）
 yum install screen -y
 screen
 dotnet ./MinecraftProxy2.dll
 </code></pre>
-<p class="reveal" style="--i: 2">::: tip
+<p class="reveal">::: tip
 一些screen 指令:
 :::</p>
-<pre class="reveal"><code> screen -S MC # 创建一个叫做MC的screen
+<pre class="reveal" style="--i: 1"><code> screen -S MC # 创建一个叫做MC的screen
 
  screen -ls  # 查看所有创建的窗口
 
@@ -250,14 +246,14 @@ dotnet ./MinecraftProxy2.dll
 
  screen -S MC -X quit # 将MC窗口强制关闭
 </code></pre>
-<blockquote class="reveal" style="--i: 1">
-<p class="reveal" style="--i: 2">本文章内容具体来自B站up:<a href="https://space.bilibili.com/280675577">多多-2333</a>及脚本，视频来源：<strong><a href="https://www.bilibili.com/video/BV1sq4y1n7cD">https://www.bilibili.com/video/BV1sq4y1n7cD</a></strong></p>
+<blockquote class="reveal" style="--i: 2">
+<p class="reveal">本文章内容具体来自B站up:<a href="https://space.bilibili.com/280675577">多多-2333</a>及脚本，视频来源：<strong><a href="https://www.bilibili.com/video/BV1sq4y1n7cD">https://www.bilibili.com/video/BV1sq4y1n7cD</a></strong></p>
 </blockquote></div>
 
           <nav class="post-nav" aria-label="文章导航">
-            <a class="post-nav__item" href="fonedogdatarecovery.html">
+            <a class="post-nav__item post-nav__item--next" href="fonedogdatarecovery.html" rel="next">
               <span class="post-nav__label mono">下一篇</span>
-              <span class="post-nav__title">FoneDogDataRecovery</span>
+              <span class="post-nav__title"><span class="post-nav__text">FoneDogDataRecovery</span><span class="post-nav__arrow" aria-hidden="true">»</span></span>
             </a>
           </nav>
         </div>
@@ -340,7 +336,9 @@ dotnet ./MinecraftProxy2.dll
             <h2 class="site-footer__col-title" id="footer-docs-title">DOCS</h2>
             <ul class="site-footer__col-list">
               <li>
-                <a class="footer-link" href="https://docs.reversedeer.com/urp-tools.html">URP Tools</a>
+                <a class="footer-link" href="https://docs.reversedeer.com/urp-tools.html"
+                  >URP Tools</a
+                >
               </li>
               <li>
                 <a class="footer-link" href="https://docs.reversedeer.com/dy-video-parser.html"
@@ -367,8 +365,8 @@ dotnet ./MinecraftProxy2.dll
                   >
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                     <path d="M15 3h6v6" />
-                    <path d="M10 14 21 3" />
-                  </svg><span class="sr-only">（在新标签页打开）</span></a
+                    <path d="M10 14 21 3" /></svg
+                  ><span class="sr-only">（在新标签页打开）</span></a
                 >
               </li>
             </ul>

@@ -69,7 +69,6 @@ firewall-cmd --reload
 一种比较方便的是在宝塔面板上传 在 **首页→文件** 里面找到 `根目录**/opt**`
 然后点击宝塔面板的上传 选择文件 把文件上传到这里
 
-![img](/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-1.png)
 
 ### **第五步 启用脚本**
 
@@ -82,7 +81,6 @@ dotnet ./MinecraftProxy2.dll
 
 脚本开始运行
 
-![img](/www/wwwroot/blog.yangshaojie.com/blog/.vuepress/public/img/image-2.png)
 
 然后以Hypixel为例 其他服务器也行
 在 `server` 后面输入 `mc.hypixel.ne`t
