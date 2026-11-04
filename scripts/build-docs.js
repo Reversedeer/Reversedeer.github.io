@@ -53,7 +53,6 @@ function pageHref(slug) {
   return slug === 'index' ? 'index.html' : slug + '.html';
 }
 
-/* 按二级标题拆成小节，代码块里的标题不参与拆分 */
 function splitSections(markdown) {
   const lines = markdown.split('\n');
   const sections = [];
@@ -80,7 +79,6 @@ function splitSections(markdown) {
   return { sections, preamble };
 }
 
-/* 收集三级标题的 id，并把 {#id} 从标题末尾去掉 */
 function prepareH3(lines) {
   const headings = [];
   let inFence = false;
@@ -119,7 +117,6 @@ function renderSection(section, seenIds) {
     seenIds.add(heading.id);
   });
 
-  // 三级标题补 id
   let h3Index = 0;
   html = html.replace(/^<h3(?:\s[^>]*)?>(.*?)<\/h3>$/gm, (match, inner) => {
     const heading = prepared.headings[h3Index];
@@ -128,7 +125,6 @@ function renderSection(section, seenIds) {
     return '<h3 id="' + escapeHtml(heading.id) + '">' + inner + '</h3>';
   });
 
-  // 补回文档页的专属类名
   html = html.replace(/<pre>/g, '<pre class="docs-code">');
   html = html.replace(/<ul>/g, '<ul class="docs-list">');
   html = html.replace(/<ol>/g, '<ol class="docs-steps">');
@@ -166,7 +162,6 @@ function renderSection(section, seenIds) {
   return { id, title: plainText(section.title), headings: prepared.headings, html: wrapper };
 }
 
-/* 左侧文档目录：按 nav.json 分组，当前页面所在分组展开 */
 function renderNav(nav, pages, currentSlug) {
   const currentPage = pages.get(currentSlug);
   if (currentPage.layout === 'index') return '';
@@ -215,7 +210,6 @@ function renderNav(nav, pages, currentSlug) {
   );
 }
 
-/* 右侧本页目录：二级标题加各自的三级标题 */
 function renderPageToc(sections) {
   const items = sections
     .map((section) => {
@@ -249,7 +243,6 @@ function renderPageToc(sections) {
   return '          <ul class="docs-page-toc__list">\n' + items + '\n          </ul>';
 }
 
-/* 翻页顺序沿用 nav.json，允许从当前分组进入下一分组。 */
 function renderPagination(previous, next) {
   const items = [
     { page: previous, direction: 'previous', label: '上一页', rel: 'prev', arrow: '«' },
@@ -312,8 +305,6 @@ function renderProjectList(pages, order) {
     if (!years.has(year)) years.set(year, []);
     years.get(year).push(page);
   }
-
-  // 与博客首页保持同一套年份分组、日期和文章行结构
   return [...years]
     .map(([year, entries]) => {
       const rows = entries
@@ -437,11 +428,11 @@ async function main() {
     const projectBreadcrumb =
       landing && landing.slug !== slug
         ? '<span class="docs-breadcrumb__sep" aria-hidden="true"></span>' +
-          '<a class="docs-breadcrumb__link" href="' +
-          pageHref(landing.slug) +
-          '">' +
-          escapeHtml(page.projectTitle) +
-          '</a>'
+        '<a class="docs-breadcrumb__link" href="' +
+        pageHref(landing.slug) +
+        '">' +
+        escapeHtml(page.projectTitle) +
+        '</a>'
         : '';
     const isIndex = page.layout === 'index';
     const { rendered, contentHtml } = isIndex
@@ -463,9 +454,9 @@ async function main() {
         page.layout === 'index'
           ? ''
           : renderPagination(
-              pages.get(projectOrder[projectIndex - 1]),
-              pages.get(projectOrder[projectIndex + 1]),
-            ),
+            pages.get(projectOrder[projectIndex - 1]),
+            pages.get(projectOrder[projectIndex + 1]),
+          ),
       content: contentHtml,
       canonical,
     });

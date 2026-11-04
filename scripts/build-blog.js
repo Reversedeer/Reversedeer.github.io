@@ -49,7 +49,6 @@ function slugify(text) {
     .replace(/\s+/g, '-');
 }
 
-/* 记录每个二到六级标题的显式 id，并把标题末尾的 {#id} 去掉 */
 function extractHeadingIds(md) {
   const ids = [];
   let inFence = false;
@@ -75,7 +74,6 @@ function renderBody(md) {
   const prepared = extractHeadingIds(md);
   let html = marked.parse(prepared.md, { gfm: true });
 
-  // 正文块级元素挂滚动渐显，按出现顺序错开 0/1/2
   let block = 0;
   html = html.replace(/^<(p|blockquote|ul|ol|pre)>/gm, (match, tag) => {
     const index = block % 3;
@@ -83,7 +81,6 @@ function renderBody(md) {
     return '<' + tag + ' class="reveal"' + (index ? ' style="--i: ' + index + '"' : '') + '>';
   });
 
-  // 标题加 id 与可点击锚点
   let heading = 0;
   html = html.replace(/^<h([2-6])>([^\n]*?)<\/h\1>$/gm, (match, depth, inner) => {
     const plain = decodeEntities(stripTags(inner)).trim();
@@ -243,7 +240,6 @@ function indexGroupsHtml(posts) {
   }).join('\n\n');
 }
 
-/* 首页最近在写：按日期取最新三篇，链接用博客子域的绝对地址 */
 function latestRowsHtml(posts) {
   return posts.slice(0, 3).map((post, index) =>
     '            <li class="post-row reveal" style="--i: ' + index + '">\n' +

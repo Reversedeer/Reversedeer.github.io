@@ -47,8 +47,6 @@
     <link rel="stylesheet" href="assets/css/blog-list.css" />
 
     <script>
-      /* 先落 .js 再绘制，避免入场动画的元素闪一下；
-       若 animations.js 三秒内没接管（脚本加载失败），撤掉 .js，内容立即可见。 */
       document.documentElement.classList.add("js");
       window.setTimeout(function () {
         if (!document.documentElement.dataset.motion) {
